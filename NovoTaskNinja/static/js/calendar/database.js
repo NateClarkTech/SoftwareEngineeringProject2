@@ -237,8 +237,7 @@ export const defaultTasks = [
         "freq": "weekly",
         "type": "school",
         "hint": "no-save",
-        "time": [13, 00],
-
+        "time": [13, 0],
     },
     {
         "title": "Last Day for 25% Tuition Refund",
