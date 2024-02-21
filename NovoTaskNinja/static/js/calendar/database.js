@@ -232,6 +232,15 @@ export const defaultTasks = [
         "hint": "no-save",
     },
     {
+        "title": "Data Structures",
+        "date": "2024-02-22",
+        "freq": "weekly",
+        "type": "school",
+        "hint": "no-save",
+        "time": [13, 00],
+
+    },
+    {
         "title": "Last Day for 25% Tuition Refund",
         "date": "2024-02-24",
         "freq": "yearly",
