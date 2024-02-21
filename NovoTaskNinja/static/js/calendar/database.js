@@ -233,7 +233,7 @@ export const defaultTasks = [
     },
     {
         "title": "Data Structures",
-        "date": "2024-02-22",
+        "date": "2024-02-24",
         "freq": "weekly",
         "type": "school",
         "hint": "no-save",
