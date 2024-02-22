@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-+hs1b_axs2%4@ghcgl8st8_t-8)lvr#a21(9&6-tn59p@*3*pq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['novotaskninja.pythonanywhere.com', 'www.novotaskninja.pythonanywhere.com', 'localhost', '127.0.0.1']
 
 # Application definition
 
