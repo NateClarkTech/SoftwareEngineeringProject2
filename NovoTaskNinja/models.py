@@ -1,6 +1,7 @@
 from django.db import models
 from django import forms
 from .models import *
+from django.contrib.auth.models import User
 
 class Meta:
     ordering = ['name']
@@ -56,3 +57,12 @@ class foodDay(models.Model):
     def __str__(self):
         return self.name
 
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    personal_info = models.TextField(max_length=500, blank=True)
+    dorm_preferences = models.CharField(max_length=100, blank=True)
+    email = models.EmailField(max_length=100, blank=True)
+    phone_number = models.CharField(max_length=10, blank=True)
+    major = models.CharField(max_length=100, blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pics', default='default.jpg')
+    

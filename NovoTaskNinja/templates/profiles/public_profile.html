@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ profile.user.username }}'s Profile</title>
+</head>
+<body>
+    <h1>{{ profile.user.username }}'s Profile</h1>
+    <img src="{{ profile.profile_picture.url }}" alt="Profile picture" height="100">
+    <p><strong>Email:</strong> {{ user_profile.email }}</p>
+    <p><strong>Personal Info:</strong> {{ profile.personal_info }}</p>
+    <p><strong>Dorm Preferences:</strong> {{ profile.dorm_preferences }}</p>
+    <p><strong>Phone Number:</strong> {{ profile.phone_number }}</p>
+    <p><strong>Major:</strong> {{ profile.major }}</p>
+    <!-- Add more fields as needed -->
+</body>
+</html>

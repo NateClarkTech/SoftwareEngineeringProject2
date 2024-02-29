@@ -3,6 +3,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages # for celebration message
 from django.views.decorators.http import require_http_methods
 from .models import *
+from .forms import *
+from django.contrib.auth.decorators import login_required
+from .forms import UserUpdateForm, ProfileUpdateForm
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from django.contrib.auth import logout, login
+
 
 def calendar(request):
     return render(request, './NovoTaskNinja/calendar.html')
@@ -159,4 +166,51 @@ def bilgestodo(request):
 
 
 
-    
+    # Getting started on the profiles Wes
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect('profile')
+    else:
+        user_form = UserUpdateForm(instance=request.user)
+        profile_form = ProfileUpdateForm(instance=request.user.profile)
+    profile = get_object_or_404(Profile, user=request.user)
+    context = {
+        'profile': profile,
+        'user_form': user_form,
+        'profile_form': profile_form
+    }
+
+    return render(request, 'profiles/profile.html', context)
+
+
+def public_profile(request, username):
+    user = get_object_or_404(User, username=username)
+    profile = get_object_or_404(Profile, user=user)
+    context = {
+        'user_profile': user,
+        'profile': profile
+    }
+    return render(request, 'profiles/public_profile.html', context)
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            Profile.objects.create(user=user)  # Create profile for the new user
+            login(request, user)  # Automatically log in the user after registration
+            return redirect('calendar')  # Redirect to the desired URL after successful registration
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    return redirect('calendar')
