@@ -1,9 +1,32 @@
 {% extends "base.html" %}
+{% block extra_css%}
+<style>
+    .auth-form-container {
+        max-width: 400px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .auth-form-container h2 {
+        margin-bottom: 1.5rem;
+    }
+    .auth-form-container button {
+        width: 100%;
+        margin-top: 1rem;
+    }
+</style>
+{% endblock %}
+{% block title %}Register{% endblock %}
+
 {% block content %}
-<h2>Register</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Register</button>
-</form>
+<div class="auth-form-container">
+    <h2>Register</h2>
+    <form method="post" class="form-group">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+</div>
 {% endblock %}

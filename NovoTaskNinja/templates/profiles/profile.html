@@ -2,44 +2,125 @@
 
 {% block title %}Profile{% endblock %}
 
-{% block content %}
-    <h1>Profile</h1>
-    {% if profile.profile_picture %}
-    <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" style="flex: 0 0 150px; width: 150px; height: 150px; border-radius: 50%; object-fit: cover;">
-    {% endif %}
-    <p>Username: {{ profile.user.username }}</p>
-    <p>Bio: {{ profile.bio }}</p>
-    <p>Dorm Preferences: {{ profile.dorm_preferences }}</p>
-    <p>Email: {{ profile.email }}</p>
-    <p>Phone Number: {{ profile.phone_number }}</p>
-    <p>Major: {{ profile.major }}</p>
-    <!-- Trigger/Edit Profile Button -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">
-        Edit Profile
-    </button>
-    <!-- Edit Profile Modal -->
-<div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <!-- Profile Edit Form -->
-          <form method="POST" enctype="multipart/form-data">
-              {% csrf_token %}
-              {{ user_form.as_p }}
-              {{ profile_form.as_p }}
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary">Save Changes</button>
-              </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+{% block extra_css %}
+<style>
+  .profile-page {
+      padding: 1rem;
+  }
+  .profile-picture {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+  }
+  .profile-details {
+      background-color: #fff;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-top: 1rem;
+  }
+  .profile-header,
+  .profile-details {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+  }
+  .modal-footer {
+      border-top: none;
+  }
+  @media (max-width: 768px) {
+      .profile-picture {
+          width: 120px; /* Smaller profile picture on mobile */
+          height: 120px;
+      }
+      .profile-header {
+          padding: 0.5rem;
+      }
+      .profile-details p {
+          font-size: 0.9rem; /* Smaller text on mobile */
+      }
+  }
   
+</style>
 {% endblock %}
-```
+
+{% block content %}
+<div class="container profile-container">
+    <div class="profile-header text-center">
+        <div>
+            {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-image img-fluid mx-auto d-block">
+            {% endif %}
+        </div>
+        <h2>{{ profile.user.username }} {% if profile.graduation_year %} 
+            <span class="badge bg-primary">{{ profile.graduation_year }}</span>
+            {% endif %}
+        </h2>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="profile-info bg-white border rounded p-3 shadow-sm">
+                <div class="profile-info">
+                <h3>About</h3>
+                <p>{{ profile.personal_info }}</p>
+                </div>
+                <h3>Quick Info</h3>
+                <p><strong>Dorm Preferences:</strong> {{ profile.dorm_preferences }}</p>
+                <p><strong>Major:</strong> {{ profile.major }}</p>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="profile-info bg-white border rounded p-3 shadow-sm">
+              <div class="col-12 col-lg-8">
+
+                <div class="profile-info">
+                    <h3>School Information</h3>
+                    <p>Dorm Preferences: {{ profile.dorm_preferences }}</p>
+                    <p>Hometown: {{ profile.hometown }}</p>
+                    <p>High School: {{ profile.highschool }}</p>
+                    <p>Looking for Roommate: {{ profile.looking_for_roommate|yesno:"Yes,No" }}</p>
+                </div>
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p>Email: {{ profile.email }}</p>
+                    <p>Phone: {{ profile.phone_number }}</p>
+                    <p>Snapchat: {{ profile.snapchat }}</p>
+                    <p>Instagram: {{ profile.instagram }}</p>
+                </div>
+                <!-- If the profile is the one currently logged in and we are on the specefic profile page and not at profile/other-->
+                {% if request.user == profile.user %}
+                <button type="button" class="btn btn-primary edit-profile-btn" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                    Edit Profile
+                </button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Profile Modal -->
+<!-- Modal code remains the same as before -->
+
+<!-- Edit Profile Modal -->
+<div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <!-- Profile Edit Form -->
+              <form method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  {{ form.as_p }}
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+
+{% endblock %}

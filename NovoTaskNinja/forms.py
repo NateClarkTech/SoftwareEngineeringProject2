@@ -7,7 +7,16 @@ class UserUpdateForm(forms.ModelForm):
         model = User
         fields = ['username', 'email']
 
+
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['personal_info', 'dorm_preferences', 'phone_number', 'major', 'profile_picture']
+        fields = [
+            'profile_picture', 'personal_info', 'dorm_preferences', 'major',
+            'graduation_year', 'hometown', 'highschool', 'looking_for_roommate',
+            'email', 'phone_number', 'snapchat', 'instagram'
+        ]
+        widgets = {
+            'personal_info': forms.Textarea(attrs={'rows': 4}),
+            'looking_for_roommate': forms.CheckboxInput(),
+        }

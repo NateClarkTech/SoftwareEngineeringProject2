@@ -169,23 +169,17 @@ def bilgestodo(request):
     # Getting started on the profiles Wes
 @login_required
 def profile(request):
+    profile, created = Profile.objects.get_or_create(user=request.user)
     if request.method == 'POST':
-        user_form = UserUpdateForm(request.POST, instance=request.user)
-        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
+        form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            # Redirect or show success message
             return redirect('profile')
     else:
-        user_form = UserUpdateForm(instance=request.user)
-        profile_form = ProfileUpdateForm(instance=request.user.profile)
-    profile = get_object_or_404(Profile, user=request.user)
-    context = {
-        'profile': profile,
-        'user_form': user_form,
-        'profile_form': profile_form
-    }
-
+        form = ProfileUpdateForm(instance=profile)
+    
+    context = {'form': form, 'profile': profile}
     return render(request, 'profiles/profile.html', context)
 
 
@@ -196,7 +190,7 @@ def public_profile(request, username):
         'user_profile': user,
         'profile': profile
     }
-    return render(request, 'profiles/public_profile.html', context)
+    return render(request, 'profiles/profile.html', context)
 
 
 def register(request):
