@@ -5,16 +5,16 @@ from django.views.decorators.http import require_http_methods
 from .models import *
 
 def calendar(request):
-    return render(request, 'calendar.html')
+    return render(request, './NovoTaskNinja/calendar.html')
 
 def ncfhours(request):
-    return render(request, 'ncfhours.html')
+    return render(request, './NovoTaskNinja/ncfhours.html')
 
 def timer(request):
-    return render(request, 'timer.html')
+    return render(request, './NovoTaskNinja/timer.html')
 
 def surprise(request):
-    return render(request, 'surprise.html')
+    return render(request, './NovoTaskNinja/surprise.html')
 
 @require_http_methods(["GET", "POST"])
 def cycreq(request):
@@ -73,7 +73,7 @@ def cycreq(request):
         'completed_courses': completed_courses,
         'cyc_requirements': cyc_requirements
     }
-    return render(request, 'cycreq.html', context)
+    return render(request, 'NovoTaskNinja/cycreq.html', context)
 
 @require_http_methods(["GET", "POST"])
 def dontkillmefood(request):
@@ -93,7 +93,7 @@ def dontkillmefood(request):
     context = {
         'weekdays': weekdays
     }
-    return render(request, 'dontkillmefood.html', context)
+    return render(request, 'NovoTaskNinja/dontkillmefood.html', context)
 
 @require_http_methods(["GET", "POST"])
 def todo(request):
@@ -119,7 +119,7 @@ def todo(request):
     context = {
         'todo_items': todo_items
     }
-    return render(request, 'todo.html', context)
+    return render(request, 'NovoTaskNinja/todo.html', context)
 
 @require_http_methods(["GET", "POST"])
 def bilgestodo(request):
@@ -132,10 +132,10 @@ def bilgestodo(request):
         form = TaskForm(request.POST)
         if form.is_valid(): # saving it to the database
             form.save()
-        return redirect('todo') #refresh page
+        return redirect('/NovoTaskNinja/todo/') #refresh page
 
     context = {"tasks": tasks, "form":form}
-    return render(request, "todo.html", context)"""
+    return render(request, "./NovoTaskNinja/todo.html", context)"""
 
     if request.method == "POST":
         if 'add' in request.POST:
@@ -155,7 +155,7 @@ def bilgestodo(request):
     context = {
         'tasks': tasks
     }
-    return render(request, 'bilgestodo.html', context)
+    return render(request, 'NovoTaskNinja/bilgestodo.html', context)
 
 
 
