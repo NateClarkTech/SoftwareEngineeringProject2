@@ -62,6 +62,15 @@
                 <div class="profile-info">
                 <h3>About</h3>
                 <p>{{ profile.personal_info }}</p>
+                {% if profile.hometown %}
+                    <p>Hometown: {{ profile.hometown }}</p>
+                {% endif %}
+                {% if profile.homestate %}
+                    <p>Home State: {{ profile.homestate }}</p>
+                {% endif %}
+                {% if profile.highschool %}
+                    <p>High School: {{ profile.highschool }}</p>
+                {% endif %}
                 </div>
                 <h3>Quick Info</h3>
                 <p><strong>Dorm Preferences:</strong> {{ profile.dorm_preferences }}</p>
@@ -72,19 +81,29 @@
             <div class="profile-info bg-white border rounded p-3 shadow-sm">
               <div class="col-12 col-lg-8">
 
-                <div class="profile-info">
+                <div class="profile-info"><!--
                     <h3>School Information</h3>
-                    <p>Dorm Preferences: {{ profile.dorm_preferences }}</p>
-                    <p>Hometown: {{ profile.hometown }}</p>
-                    <p>High School: {{ profile.highschool }}</p>
-                    <p>Looking for Roommate: {{ profile.looking_for_roommate|yesno:"Yes,No" }}</p>
+                    {% if profile.dorm_preferences %}
+                        <p><strong>Dorm Preferences: </strong>{{ profile.dorm_preferences }}</p>
+                    {% endif %}
+                    {% if profile.looking_for_roommate %}
+                        <p>Looking for Roommate: {{ profile.looking_for_roommate|yesno:"Yes,No" }}</p>
+                    {% endif %}-->
                 </div>
                 <div class="contact-info">
                     <h3>Contact Information</h3>
-                    <p>Email: {{ profile.email }}</p>
-                    <p>Phone: {{ profile.phone_number }}</p>
-                    <p>Snapchat: {{ profile.snapchat }}</p>
-                    <p>Instagram: {{ profile.instagram }}</p>
+                    {% if profile.email %}
+                        <p>Email: {{ profile.email }}</p>
+                    {% endif %}
+                    {% if profile.phone_number %}
+                        <p>Phone: {{ profile.phone_number }}</p>
+                    {% endif %}
+                    {% if profile.snapchat %}
+                        <p>Snapchat: {{ profile.snapchat }}</p>
+                    {% endif %}
+                    {% if profile.instagram %}
+                        <p>Instagram: {{ profile.instagram }}</p>
+                    {% endif %}
                 </div>
                 <!-- If the profile is the one currently logged in and we are on the specefic profile page and not at profile/other-->
                 {% if request.user == profile.user %}

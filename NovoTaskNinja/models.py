@@ -70,6 +70,7 @@ class Profile(models.Model):
 
     # Adding in extra stuff about the user
     hometown = models.CharField(max_length=100, blank=True)
+    homestate = models.CharField(max_length=100, blank=True)
     highschool = models.CharField(max_length=100, blank=True)
     looking_for_roommate = models.BooleanField(default=False)
     # Contact info
