@@ -13,19 +13,4 @@ from django.core.asgi import get_asgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'SEProject2.settings')
 
-
- 
-from channels.auth import AuthMiddlewareStack
-from channels.routing import ProtocolTypeRouter , URLRouter
-from NovoTaskNinja import routing
- 
-application = ProtocolTypeRouter(
-    {
-        "http" : get_asgi_application() , 
-        "websocket" : AuthMiddlewareStack(
-            URLRouter(
-                routing.websocket_urlpatterns
-            )    
-        )
-    }
-)
+application = get_asgi_application()

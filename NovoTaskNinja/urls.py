@@ -19,8 +19,7 @@ urlpatterns = [
     path('timer/', views.timer, name='timer'),
     path('ncfhours/', views.ncfhours, name='ncfhours'),
     path('surprise/', views.surprise, name='surprise'),
-    path("chat/", views.chatPage, name="chat-page"),
-
+    
     
     # Login/logout stuff
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
