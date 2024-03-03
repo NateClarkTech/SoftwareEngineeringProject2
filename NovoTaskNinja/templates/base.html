@@ -1,122 +1,29 @@
 {% load static %}
 
-<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Timer{% endblock %}</title>
+    <!-- block title is to allow each page to have it's own title -->
+    <title>{% block title %}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/base/base.css' %}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     
-    {% block extra_css %}{% endblock %}
-    <style>
-        @media (max-width: 992px) {
-            .navbar-brand img {
-                transform: scale(1.5); /* just make the images bigger */
-            }
-        
-            .navbar-brand img:hover {
-                transform: scale(2); /* Larger on hover */
-            }
-        }
-        </style>
+    <!-- block extendHeader is so pages that extend from base.html can have custom links and scripts included in the header -->
+    {% block extendHeader %}{% endblock %}
+
 </head>
 <body>
     <div class="body-cont">
-        <!-- Desktop Navbar -->
-        <div class="col-3 nav-section d-none d-lg-block">
-            <div class="bg-primary nav-links">
-                <!-- Desktop Navigation Links -->
-                <div class="nav-divider">Novo-Planning</div>
-                <div><a href="{% url 'calendar' %}">🗓️ Calendar</a></div>
-                <div><a href="{% url 'ncfhours' %}">📚 NCF Hours</a></div>
-                <div><a href="{% url 'todo' %}">📝 To-Do M</a></div>
-                <div><a href="{% url 'bilgestodo' %}">🧿 To-Do B</a></div>
-                <div><a href="{% url 'dontkillmefood' %}">🍔 Don't Kill Me Food</a></div>
-                <div class="nav-divider">Novo-Gadgets</div>
-                <div><a href="{% url 'timer' %}">⏲️ Timer</a></div>
-                <div><a href="{% url 'cycreq' %}">🚸 CYC/AOC Tracker</a></div>
-                <form method="get" action="{% url 'search_profiles' %}" class="d-flex">
-                    <input class="form-control me-2" type="search" name="query" placeholder="Search Profiles" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-                
-                <div><a href="../../surprise/"><img src="../../static/images/magicwand.png" alt="Surprise" style="display: block; margin-left: auto; margin-right: auto;"/></a></div>     
-                <img src="{% static 'images/logo.png' %}" alt="logo" class="logo">
-                <!-- Authentication Links -->
-                <div class="nav-divider">Account</div>
-                {% if user.is_authenticated %}
-                    <div><a href="{% url 'profile' %}">👤 Profile</a></div>
-                    <div><a href="{% url 'logout' %}">🚪 Logout</a></div>
-                {% else %}
-                    <div><a href="{% url 'login' %}">🔑 Login</a></div>
-                    <div><a href="{% url 'register' %}">📝 Register</a></div>
-                {% endif %}
-            </div>
-        </div>
-
-        <!-- Bottom Navbar for Mobile written by gpt-->
-        <div class="fixed-bottom bg-primary d-lg-none">
-            <nav class="navbar navbar-dark navbar-expand d-flex justify-content-around">
-                <!-- If the user is authenticated, the home icon takes them to profile, otherwise it redirects to login-->
-                <a href="{% if user.is_authenticated %}{% url 'profile' %}{% else %}{% url 'login' %}{% endif %}" class="navbar-brand">
-                    <img src="{% static 'media/HomeIcon.png' %}" alt="Home" style="width: 24px; height: 24px;">
-
-                <a href="{% url 'calendar' %}" class="navbar-brand">
-                    <img src="{% static 'media/ChatIcon.png' %}" alt="Chat" style="width: 24px; height: 24px;">
-                </a>
-                <a href="{% url 'calendar' %}" class="navbar-brand">
-                    <img src="{% static 'media/CalendarIcon.png' %}" alt="Calendar" style="width: 24px; height: 24px;">
-                </a>
-                <!-- Toggle for larger menu -->
-                <a href="#" class="navbar-brand" data-bs-toggle="modal" data-bs-target="#mobileNavModal">
-                    <img src="{% static 'media/MenuIcon.png' %}" alt="Menu" style="width: 24px; height: 24px;">
-                </a>
-            </nav>
-        </div>
-
-        <!-- Mobile Navigation Modal -->
-        <div class="modal fade" id="mobileNavModal" tabindex="-1" aria-labelledby="mobileNavModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="mobileNavModalLabel">Navigation</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Repeat the navigation links here for mobile -->
-                        <a href="{% url 'calendar' %}" class="d-block">🗓️ Calendar</a>
-                        <a href="{% url 'ncfhours' %}" class="d-block">📚 NCF Hours</a>
-                        <a href="{% url 'todo' %}" class="d-block">📝 To-Do M</a>
-                        <a href="{% url 'bilgestodo' %}" class="d-block">🧿 To-Do B</a>
-                        <a href="{% url 'dontkillmefood' %}" class="d-block">🍔 Don't Kill Me Food</a>
-                        <a href="{% url 'timer' %}" class="d-block">⏲️ Timer</a>
-                        <a href="{% url 'cycreq' %}" class="d-block">🚸 CYC/AOC Tracker</a>
-                        <form method="get" action="{% url 'search_profiles' %}" class="d-flex">
-                            <input class="form-control me-2" type="search" name="query" placeholder="Search Profiles" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form>
-                        <!-- Authentication Links for Mobile -->
-                        {% if user.is_authenticated %}
-                            <a href="{% url 'profile' %}" class="d-block">👤 Profile</a>
-                            <a href="{% url 'logout' %}" class="d-block">🚪 Logout</a>
-                        {% else %}
-                            <a href="{% url 'login' %}" class="d-block">🔑 Login</a>
-                            <a href="{% url 'register' %}" class="d-block">📝 Register</a>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Main Content Section -->
+        {% include 'navbar.html' %}
+        
+        <!-- Insert Child template contents here -->
         <div id="content" name="content" class="main">
             {% block content %}
             {% endblock %}
         </div>
+
     </div>
 </body>
 </html>
-```

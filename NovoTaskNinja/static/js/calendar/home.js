@@ -113,7 +113,6 @@ const Home = () => {
                 <div><a href="../../cycreq/">🚸 CYC/AOC Tracker</a></div>
                 <div><a href="../../surprise/"><img src="../../static/images/magicwand.png" alt="Surprise" style="display: block; margin-left: auto; margin-right: auto;"/></a></div>     
                 <img src="../../static/images/logo.png"/>
-                
             </div>
         </div>
         <!--MAIN SECTION-->
