@@ -229,3 +229,11 @@ def search_profiles(request):
         'query': query,
         'results': results
     })
+    
+    
+# Chat page from https://www.geeksforgeeks.org/realtime-chat-app-using-django/
+def chatPage(request, *args, **kwargs):
+    if not request.user.is_authenticated:
+        return redirect("login")
+    context = {}
+    return render(request, "chat/chatPage.html", context)

@@ -30,6 +30,7 @@ ALLOWED_HOSTS = ['novotaskninja.pythonanywhere.com', 'www.novotaskninja.pythonan
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -37,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'NovoTaskNinja',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +130,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'calendar'  # Adjust as needed
 LOGOUT_REDIRECT_URL = 'calendar'  # Adjust as needed
 
+# Setting up stuff for the chat
+ASGI_APPLICATION = "SEProject2.asgi.application"
+ 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
