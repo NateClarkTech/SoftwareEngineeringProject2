@@ -235,13 +235,5 @@ def search_profiles(request):
 def chatPage(request, *args, **kwargs):
     if not request.user.is_authenticated:
         return redirect("login")
-    # Now we need to get the most recent 20 messages, then sort them by time oldest to newest
-    messages = Message.objects.order_by("-timestamp").all()[:20]
-    # sort them
-    messages = reversed(messages)
-    
-    context = {
-        "messages": messages,
-        "profile": request.user.profile
-    }
+    context = {}
     return render(request, "chat/chatPage.html", context)
