@@ -20,3 +20,7 @@ class ProfileUpdateForm(forms.ModelForm):
             'personal_info': forms.Textarea(attrs={'rows': 4}),
             'looking_for_roommate': forms.CheckboxInput(),
         }
+        
+# A profile search form from gpt
+class ProfileSearchForm(forms.Form):
+    query = forms.CharField(label='Search Profiles', max_length=100)

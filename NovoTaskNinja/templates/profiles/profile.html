@@ -4,42 +4,63 @@
 
 {% block extra_css %}
 <style>
-  .profile-page {
-      padding: 1rem;
-  }
-  .profile-picture {
-      width: 150px;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 50%;
-  }
-  .profile-details {
-      background-color: #fff;
-      padding: 1rem;
-      border-radius: 0.5rem;
-      margin-top: 1rem;
-  }
-  .profile-header,
-  .profile-details {
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      background-color: #fff;
-  }
-  .modal-footer {
-      border-top: none;
-  }
-  @media (max-width: 768px) {
-      .profile-picture {
-          width: 120px; /* Smaller profile picture on mobile */
-          height: 120px;
-      }
-      .profile-header {
-          padding: 0.5rem;
-      }
-      .profile-details p {
-          font-size: 0.9rem; /* Smaller text on mobile */
-      }
-  }
-  
+    body, html {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    .body-cont {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    #content {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+    /* Adjustments for desktop */
+    @media (min-width: 992px) { /* Adjust based on your sidebar breakpoint */
+        .body-cont {
+            flex-direction: row;
+        }
+        .nav-section {
+            display: block;
+            width: 300px; /* Adjust based on your sidebar width */
+            flex-shrink: 0; /* Prevent the sidebar from shrinking */
+        }
+        #content {
+            width: calc(100% - 300px); /* Take remaining space */
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 20px;
+        }
+        .profile-container {
+            max-width: 100%;
+            width: 100%; /* Use available space */
+            display: block; /* Stack content vertically */
+        }
+    }
+    /* Additional profile page styling */
+    .profile-page {
+        display: flex;
+        flex-direction: column; /* Stack vertically on mobile */
+    }
+    @media (max-width: 768px) {
+        /* Adjustments for mobile */
+        .profile-picture {
+            width: 120px;
+            height: 120px;
+        }
+        .profile-header, .profile-details {
+            padding: 0.5rem;
+        }
+        .profile-details p {
+            font-size: 0.9rem;
+        }
+    }
 </style>
 {% endblock %}
 

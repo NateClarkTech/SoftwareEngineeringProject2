@@ -208,3 +208,24 @@ def register(request):
 def logout_view(request):
     logout(request)
     return redirect('calendar')
+
+
+# Profile searching view
+def search_profiles(request):
+    form = ProfileSearchForm()
+    query = None
+    results = []
+
+    if 'query' in request.GET:
+        form = ProfileSearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            results = Profile.objects.filter(
+                user__username__icontains=query
+            )
+
+    return render(request, 'profiles/profile_search.html', {
+        'form': form,
+        'query': query,
+        'results': results
+    })
