@@ -80,9 +80,9 @@ class Profile(models.Model):
     instagram = models.CharField(max_length=100, blank=True)
  # Potental class to save messages   
 class Message(models.Model):
-    sender = models.ForeignKey(User, related_name="sender", on_delete=models.CASCADE)
-    content = models.TextField()
+    user = models.ForeignKey(User, related_name="user", on_delete=models.CASCADE)
+    message = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.sender.username + ": " + self.content[:50]
+        return self.user.username + ": " + self.message[:50]

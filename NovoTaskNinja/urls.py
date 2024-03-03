@@ -19,7 +19,7 @@ urlpatterns = [
     path('timer/', views.timer, name='timer'),
     path('ncfhours/', views.ncfhours, name='ncfhours'),
     path('surprise/', views.surprise, name='surprise'),
-    path("chat/", views.chatPage, name="chat-page"),
+    path("chat/", views.chatPage, name="chat"),
 
     
     # Login/logout stuff

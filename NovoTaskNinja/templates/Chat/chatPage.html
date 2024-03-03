@@ -1,50 +1,100 @@
 {% extends "base.html" %}
+{% block extra_css %}
+<style>
+	#messages_container {
+		overflow-y: auto; /* Enable vertical scrolling */
+		height: 400px; /* Fixed height */
+		border: 1px solid #ccc; /* A light border */
+		padding: 10px;
+		margin-bottom: 20px;
+		background-color: #f9f9f9; /* Light grey background */
+		width: auto;
+		
+
+	}
+	/* Styling to put the individual messages in little borders to make it easier to read */
+	#messages_container div {
+		border: 1px solid #ccc;
+		padding: 5px;
+		margin-bottom: 5px;
+		width: auto;	
+		height: auto;
+		color: blue;
+		background-color: white;
+		display: flex;
+	}
+	
+</style>
+{% endblock %}
+
 {% block content %}
 <body>
-	<center><h1>Hello , Welcome to my chat site ! {{request.user}}</h1></center>
+	<center><h1>Hello! {{request.user}}</h1></center>
 	<br>
 	{% if request.user.is_authenticated %}
-	<center> Logout the chat Page <a href = "{% url 'logout' %}">Logout</a></center>
+	<center>Logout the chat Page <a href="{% url 'logout' %}">Logout</a></center>
 	{% endif %}
-	<div
-	class="chat__item__container"
-	id="id_chat_item_container"
-	style="font-size: 20px"
-	>
-	<br />
-	<input type="text" id="id_message_send_input" />
-	<button type="submit" id="id_message_send_button">Send Message</button>
-	<br />
-	<br />
+	<div id="messages_container" style="overflow-y: scroll; height: 400px; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+		<!-- Section to display the most recent messages -->
+		{% for message in messages %}
+		<div id = "messages_container"><a href = "../profile/{{message.user}}/"> {{message.user}} </a> : {{ message.message }}</div>
+		{% endfor %}
+	</div>
+	<div>
+		<input type="text" id="id_message_send_input" style="font-size: 20px; width: 80%;" />
+		<button type="submit" id="id_message_send_button">Send Message</button>
 	</div>
 	<script>
-	const chatSocket = new WebSocket("ws://" + window.location.host + "/");
-	chatSocket.onopen = function (e) {
-		console.log("The connection was setup successfully !");
-	};
-	chatSocket.onclose = function (e) {
-		console.log("Something unexpected happened !");
-	};
-	document.querySelector("#id_message_send_input").focus();
-	document.querySelector("#id_message_send_input").onkeyup = function (e) {
-		if (e.keyCode == 13) {
-		document.querySelector("#id_message_send_button").click();
-		}
-	};
-	document.querySelector("#id_message_send_button").onclick = function (e) {
-		var messageInput = document.querySelector(
-		"#id_message_send_input"
-		).value;
-		chatSocket.send(JSON.stringify({ message: messageInput, username : "{{request.user.username}}"}));
-	};
-	chatSocket.onmessage = function (e) {
-		const data = JSON.parse(e.data);
-		var div = document.createElement("div");
-		div.innerHTML = data.username + " : " + data.message;
-		document.querySelector("#id_message_send_input").value = "";
-		document.querySelector("#id_chat_item_container").appendChild(div);
-	};
+		// Automatically scroll to the bottom of the message page
+		window.onload = function() {
+			const messagesContainer = document.querySelector("#messages_container");
+			if (messagesContainer) {
+				messagesContainer.scrollTop = messagesContainer.scrollHeight;
+			}
+		};
+		const chatSocket = new WebSocket("ws://" + window.location.host + "/");
+		chatSocket.onopen = function(e) {
+			console.log("The connection was setup successfully!");
+		};
+		chatSocket.onclose = function(e) {
+			console.log("Something unexpected happened!");
+		};
+		document.querySelector("#id_message_send_input").focus();
+		document.querySelector("#id_message_send_input").onkeyup = function(e) {
+			if (e.keyCode === 13) { // Enter key
+				document.querySelector("#id_message_send_button").click();
+			}
+		};
+		document.querySelector("#id_message_send_button").onclick = function(e) {
+			const messageInputDom = document.querySelector("#id_message_send_input");
+			const messageInput = messageInputDom.value;
+			chatSocket.send(JSON.stringify({ message: messageInput, username: "{{ request.user.username }}" }));
+			messageInputDom.value = ''; // Clear input after sending
+		};
+		chatSocket.onmessage = function(e) {
+			const data = JSON.parse(e.data);
+			const messageContainer = document.createElement("div");
+		
+			// Create an anchor element for the username
+			const usernameLink = document.createElement("a");
+			usernameLink.href = `../profile/${data.username}`; // Adjust the URL pattern as needed
+			usernameLink.textContent = data.username;
+			usernameLink.style.marginRight = "5px"; // Add a small margin to the right of the username
+		
+			// Append username link to the message container
+			messageContainer.appendChild(usernameLink);
+		
+			// Create a text node for the message content and append it
+			const messageContent = document.createTextNode(`: ${data.message}`);
+			messageContainer.appendChild(messageContent);
+		
+			// Append the completed message container to the messages container
+			const messagesContainer = document.querySelector("#messages_container");
+			messagesContainer.appendChild(messageContainer);
+			// scroll to the bottom
+			messagesContainer.scrollTop = messagesContainer.scrollHeight;
+		};
 	</script>
-</body>
+</body>	
 {% endblock %}
-```
+```	
