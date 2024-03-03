@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block extra_css %}
+<style>
+    .profile-container {
+        padding: 2rem 0;
+    }
+    .profile-header {
+        background-color: #f8f9fa;
+        padding-bottom: 4rem; /* Space for profile image */
+    }
+    .profile-image {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin-top: -8rem; /* Pull the image up */
+        border: 4px solid #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .profile-info {
+        padding: 1rem;
+    }
+    .edit-profile-btn {
+        display: block;
+        width: 100%;
+        margin-top: 1rem;
+    }
+    @media (max-width: 767px) {
+        .profile-container {
+            padding: 1rem 0;
+        }
+        .profile-header {
+            padding-bottom: 3rem; /* Less space on mobile */
+        }
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            margin-top: -6rem; /* Adjust for mobile */
+        }
+        .edit-profile-btn {
+            margin-top: 0.5rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container profile-container">
+    <div class="profile-header text-center">
+        <div>
+            {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-image img-fluid mx-auto d-block">
+            {% endif %}
+        </div>
+        <h2>{{ profile.user.username }} {% if profile.graduation_year %} 
+            <span class="badge bg-primary">{{ profile.graduation_year }}</span>
+            {% endif %}
+        </h2>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="profile-info bg-white border rounded p-3 shadow-sm">
+                <div class="profile-info">
+                <h3>About</h3>
+                <p>{{ profile.personal_info }}</p>
+                </div>
+                <h3>Quick Info</h3>
+                <p><strong>Dorm Preferences:</strong> {{ profile.dorm_preferences }}</p>
+                <p><strong>Major:</strong> {{ profile.major }}</p>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="profile-info bg-white border rounded p-3 shadow-sm">
+              <div class="col-12 col-lg-8">
+
+                <div class="profile-info">
+                    <h3>School Information</h3>
+                    <p>Dorm Preferences: {{ profile.dorm_preferences }}</p>
+                    <p>Hometown: {{ profile.hometown }}</p>
+                    <p>High School: {{ profile.highschool }}</p>
+                    <p>Looking for Roommate: {{ profile.looking_for_roommate|yesno:"Yes,No" }}</p>
+                </div>
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p>Email: {{ profile.email }}</p>
+                    <p>Phone: {{ profile.phone_number }}</p>
+                    <p>Snapchat: {{ profile.snapchat }}</p>
+                    <p>Instagram: {{ profile.instagram }}</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
