@@ -2,6 +2,8 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from .models import Checklist  # Assuming your model's name is Checklist
+from django.db.models import F
+
 
 # A simple view that returns checklist.html
 def checklist(request):
@@ -32,5 +34,20 @@ def update_checklist(request):
         user_checklist.task3 = request.POST.get('task3') == 'true'
         user_checklist.task4 = request.POST.get('task4') == 'true'
         user_checklist.task5 = request.POST.get('task5') == 'true'
-        user_checklist.save()
+
+        # Update the score
+        user_checklist.update_score()
+
         return JsonResponse({'status': 'success'})
+    
+def leaderboard_view(request):
+    # Query the database for all checklists, ordered by score in descending order
+    checklists = Checklist.objects.order_by('-score')
+
+    # Create a list of players with their rank, name, and score
+    players = [
+        {"rank": i + 1, "name": checklist.user.username, "score": checklist.score}
+        for i, checklist in enumerate(checklists)
+    ]
+
+    return render(request, 'leaderboard.html', {'players': players})
