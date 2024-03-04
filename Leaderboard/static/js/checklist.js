@@ -1,7 +1,7 @@
 console.log("JavaScript file is linked!");
 
 function sendUpdate() {
-    fetch('/update_checklist/', {
+    fetch('/leaderboard/update_checklist/', {  // Update this line
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -23,7 +23,6 @@ for (let i = 1; i <= 5; i++) {
         var card = document.getElementById('card' + i);
         if (this.checked) {
             card.classList.add('bg-primary');
-            console.log("Making color PRIMARY");
             this.disabled = true;  // Disable the checkbox
             var toastElList = [].slice.call(document.querySelectorAll('.toast'))
             var toastList = toastElList.map(function (toastEl) {
@@ -53,3 +52,14 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+
+window.onload = function() {
+    for (let i = 1; i <= 5; i++) {
+        let checkbox = document.getElementById('checkbox' + i);
+        let card = document.getElementById('card' + i);
+        if (checkbox.checked) {
+            card.classList.add('bg-primary');
+            checkbox.disabled = true;
+        }
+    }
+};

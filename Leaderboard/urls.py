@@ -4,4 +4,5 @@ from . import views
 urlpatterns = [
     path('', views.checklist, name='checklist'),
     path('checklist/', views.checklist, name='checklist'),
+    path('update_checklist/', views.update_checklist, name='update_checklist'),
 ]

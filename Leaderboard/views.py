@@ -5,7 +5,11 @@ from .models import Checklist  # Assuming your model's name is Checklist
 
 # A simple view that returns checklist.html
 def checklist(request):
-    user_checklist = Checklist.objects.get(user=request.user)
+    try:
+        user_checklist = Checklist.objects.get(user=request.user)
+    except Checklist.DoesNotExist:
+        user_checklist = Checklist.objects.create(user=request.user)
+
     context = {
         'task1': user_checklist.task1,
         'task2': user_checklist.task2,
@@ -18,7 +22,11 @@ def checklist(request):
 @csrf_exempt
 def update_checklist(request):
     if request.method == 'POST':
-        user_checklist = Checklist.objects.get(user=request.user)
+        try:
+            user_checklist = Checklist.objects.get(user=request.user)
+        except Checklist.DoesNotExist:
+            user_checklist = Checklist.objects.create(user=request.user)
+
         user_checklist.task1 = request.POST.get('task1') == 'true'
         user_checklist.task2 = request.POST.get('task2') == 'true'
         user_checklist.task3 = request.POST.get('task3') == 'true'
