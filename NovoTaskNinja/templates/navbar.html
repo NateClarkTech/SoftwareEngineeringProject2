@@ -9,7 +9,7 @@
                 <div><a href="{% url 'calendar' %}">🗓️ Calendar</a></div>
                 <div><a href="{% url 'ncfhours' %}">📚 NCF Hours</a></div>
                 <div><a href="{% url 'dontkillmefood' %}">🍔 Don't Kill Me Food</a></div>
-                <form method="get" action="{% url 'search_profiles' %}" class="d-flex">
+                <form method="get" action="{% url 'Profile:search_profiles' %}" class="d-flex">
                     <input class="form-control me-2" type="search" name="query" placeholder="Search Profiles" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
@@ -19,11 +19,11 @@
                 <!-- Authentication Links -->
                 <div class="nav-divider">Account</div>
                 {% if user.is_authenticated %}
-                    <div><a href="{% url 'profile' %}">👤 Profile</a></div>
-                    <div><a href="{% url 'logout' %}">🚪 Logout</a></div>
+                    <div><a href="{% url 'Profile:profile' %}">👤 Profile</a></div>
+                    <div><a href="{% url 'Profile:logout' %}">🚪 Logout</a></div>
                 {% else %}
-                    <div><a href="{% url 'login' %}">🔑 Login</a></div>
-                    <div><a href="{% url 'register' %}">📝 Register</a></div>
+                    <div><a href="{% url 'Profile:login' %}">🔑 Login</a></div>
+                    <div><a href="{% url 'Profile:register' %}">📝 Register</a></div>
                 {% endif %}
             </div>
         </div>
@@ -32,7 +32,7 @@
         <div class="fixed-bottom bg-primary d-lg-none">
             <nav class="navbar navbar-dark navbar-expand d-flex justify-content-around">
                 <!-- If the user is authenticated, the home icon takes them to profile, otherwise it redirects to login-->
-                <a href="{% if user.is_authenticated %}{% url 'profile' %}{% else %}{% url 'login' %}{% endif %}" class="navbar-brand">
+                <a href="{% if user.is_authenticated %}{% url 'Profile:profile' %}{% else %}{% url 'Profile:login' %}{% endif %}" class="navbar-brand">
                     <img src="{% static 'media/HomeIcon.png' %}" alt="Home" style="width: 24px; height: 24px;">
 
                 <a href="{% url 'calendar' %}" class="navbar-brand">
@@ -61,17 +61,17 @@
                         <a href="{% url 'calendar' %}" class="d-block">🗓️ Calendar</a>
                         <a href="{% url 'ncfhours' %}" class="d-block">📚 NCF Hours</a>
                         <a href="{% url 'dontkillmefood' %}" class="d-block">🍔 Don't Kill Me Food</a>
-                        <form method="get" action="{% url 'search_profiles' %}" class="d-flex">
+                        <form method="get" action="{% url 'Profile:search_profiles' %}" class="d-flex">
                             <input class="form-control me-2" type="search" name="query" placeholder="Search Profiles" aria-label="Search">
                             <button class="btn btn-outline-success" type="submit">Search</button>
                         </form>
                         <!-- Authentication Links for Mobile -->
                         {% if user.is_authenticated %}
-                            <a href="{% url 'profile' %}" class="d-block">👤 Profile</a>
-                            <a href="{% url 'logout' %}" class="d-block">🚪 Logout</a>
+                            <a href="{% url 'Profile:profile' %}" class="d-block">👤 Profile</a>
+                            <a href="{% url 'Profile:logout' %}" class="d-block">🚪 Logout</a>
                         {% else %}
-                            <a href="{% url 'login' %}" class="d-block">🔑 Login</a>
-                            <a href="{% url 'register' %}" class="d-block">📝 Register</a>
+                            <a href="{% url 'Profile:login' %}" class="d-block">🔑 Login</a>
+                            <a href="{% url 'Profile:register' %}" class="d-block">📝 Register</a>
                         {% endif %}
                     </div>
                 </div>

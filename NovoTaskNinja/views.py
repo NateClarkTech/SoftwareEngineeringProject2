@@ -5,10 +5,9 @@ from django.views.decorators.http import require_http_methods
 from .models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
-from .forms import UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from django.contrib.auth import logout, login
+
 
 
 def calendar(request):
@@ -165,67 +164,3 @@ def bilgestodo(request):
     return render(request, 'bilgestodo.html', context)
 
 
-
-    # Getting started on the profiles Wes
-@login_required
-def profile(request):
-    profile, created = Profile.objects.get_or_create(user=request.user)
-    if request.method == 'POST':
-        form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
-        if form.is_valid():
-            form.save()
-            # Redirect or show success message
-            return redirect('profile')
-    else:
-        form = ProfileUpdateForm(instance=profile)
-    
-    context = {'form': form, 'profile': profile}
-    return render(request, 'profiles/profile.html', context)
-
-
-def public_profile(request, username):
-    user = get_object_or_404(User, username=username)
-    profile = get_object_or_404(Profile, user=user)
-    context = {
-        'user_profile': user,
-        'profile': profile
-    }
-    return render(request, 'profiles/profile.html', context)
-
-
-def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            Profile.objects.create(user=user)  # Create profile for the new user
-            login(request, user)  # Automatically log in the user after registration
-            return redirect('calendar')  # Redirect to the desired URL after successful registration
-    else:
-        form = UserCreationForm()
-    return render(request, 'registration/register.html', {'form': form})
-
-def logout_view(request):
-    logout(request)
-    return redirect('calendar')
-
-
-# Profile searching view
-def search_profiles(request):
-    form = ProfileSearchForm()
-    query = None
-    results = []
-
-    if 'query' in request.GET:
-        form = ProfileSearchForm(request.GET)
-        if form.is_valid():
-            query = form.cleaned_data['query']
-            results = Profile.objects.filter(
-                user__username__icontains=query
-            )
-
-    return render(request, 'profiles/profile_search.html', {
-        'form': form,
-        'query': query,
-        'results': results
-    })

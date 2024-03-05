@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container">
     <h1>Search Profiles</h1>
-    <form method="get" action="{% url 'search_profiles' %}">
+    <form method="get" action="{% url 'Profile:search_profiles' %}">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="btn btn-primary">Search</button>
@@ -16,7 +16,7 @@
         <div class="profiles-list">
             {% for profile in results %}
                 <div class="profile">
-                    <a href="{% url 'public_profile' profile.user.username %}">
+                    <a href="{% url 'Profile:public_profile' profile.user.username %}">
                         <img src="{{ profile.profile_picture.url }}" alt="{{ profile.user.username }}" />
                         <h3>{{ profile.user.username }}</h3>
                     </a>
