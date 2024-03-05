@@ -134,8 +134,10 @@ const Home = () => {
         <!-- WILL SHOW CREATE POPUP -->
         <${CreatePopup} open=${createPopupOpen} closePopup=${closePopup} />
         <${MessagePopup}  />
+
+    </div>
     `
 }
 
-const contentDiv = document.getElementById('calendarDiv');
-render(html`<${Home} />`, contentDiv);
+
+render(html`<${Home} /> `, document.body)
