@@ -115,27 +115,27 @@ const Home = () => {
                 </div>
             </div>
             <!--This is a cnditional render, and draw only the current view -->
-            <div class='calender-view' >
+            <div class='calender-view'>
                 ${viewType === 'WEEK' && html`
-                    <${WeekCalender}   />
+                    <${WeekCalender}/>
                 `}
                 ${viewType === 'DAY' && html`
-                    <${DayCalender}   />
+                    <${DayCalender}/>
                 `}
                 ${viewType === 'MONTH' && html`
-                    <${MonthCalender}   />
+                    <${MonthCalender}/>
                 `}
                 ${viewType === 'SEM' && html`
-                    <${SemCalender}   />
+                    <${SemCalender}/>
                 `}
             </div>
         </div>
 
         <!-- WILL SHOW CREATE POPUP -->
         <${CreatePopup} open=${createPopupOpen} closePopup=${closePopup} />
-        <${MessagePopup}  />
+        <${MessagePopup}/>
     `
 }
 
-const contentDiv = document.getElementById('calendarDiv');
+const contentDiv = document.getElementById('content');
 render(html`<${Home} />`, contentDiv);

@@ -1,0 +1,55 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block title %}To Do List{% endblock %}
+
+{% block extendHeader %}
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'css/todo/todo.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <header>
+            <h1>Novo Task Destroyer</h1>
+        </header>
+
+        <!-- Add Todo Form -->
+        <form method="POST" action="">
+            {% csrf_token %}
+            <input type="text" name="description" class="todo-input" placeholder="Add a new task">
+            <button type="submit" name="add" class="todo-button">
+                <i class="fas fa-plus-circle fa-lg"></i>
+            </button>
+        </form>
+
+        <div class="todo-container">
+            <ul class="todo-list">
+                {% for todo in todo_items %}
+                <li class="{% if 'completed' if todo.completed else 'incomplete' %}">
+                    {{ todo.description }}
+
+                    <!-- Complete Button -->
+                    <form method="POST" action="" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="todo_id" value="{{ todo.id }}">
+                        <button type="submit" name="complete" class="complete-btn">
+                            {% if todo.completed %}<i class="fas fa-undo"></i>{% else %}<i class="fas fa-check"></i>{% endif %}
+                        </button>
+                    </form>
+
+                    <!-- Delete Button -->
+                    <form method="POST" action="" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="todo_id" value="{{ todo.id }}">
+                        <button type="submit" name="delete" class="delete-btn">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

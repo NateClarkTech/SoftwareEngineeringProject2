@@ -137,5 +137,5 @@ const Home = () => {
     `
 }
 
-const contentDiv = document.getElementById('calendarDiv');
+const contentDiv = document.getElementById('content');
 render(html`<${Home} />`, contentDiv);
