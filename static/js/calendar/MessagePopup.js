@@ -5,7 +5,7 @@ import { messageSig } from './store.js'
 
 function runAt11AM(callback) {
     const now = new Date();
-    const targetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 11, 0, 0, 0); // Set the target time to 11 AM
+    const targetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 11, 0, 0, 0); // Set the target time to 11 AM (24 hr clock) (hr, min, sec, ms)
 
     const timeUntil11AM = targetTime - now;
 

@@ -1,88 +1,53 @@
 import { useEffect } from 'https://cdn.jsdelivr.net/npm/preact-htm-signals-standalone@0.0.16/+esm'
 import { tasksSig } from "./store.js"
 
-const BASE_URL = "http://127.0.0.1:8000"
-
+// Function to generate a unique ID for a task
 export const getUID = () => {
     return Math.floor(Math.random() * 100000)
 }
 
+// Function to add a task to the tasksSig signal
 export const addTask = (task) => {
+    // Adding a unique ID to the task
     task = { ...task, id: getUID() }
-    tasksSig.value = [task, ...tasksSig.value]
+    // Updating the tasksSig value by adding the new task
+    tasksSig.value = [task, ...tasksSig.value];
 }
 
+// Function to remove a task from the tasksSig signal by ID
 export const removeTask = (id) => {
-    tasksSig.value = tasksSig.value.filter(t => t.id !== id)
+    // Filtering out the task with the specified ID
+    tasksSig.value = tasksSig.value.filter(t => t.id !== id);
 }
 
-export const getJSON = async (url, content) => {
-    try {
-        const response = await fetch(url, content)
-        const json = await response.json()
-        return [false, json]
-    } catch (e) {
-        console.log('fetch error', e)
-        return [true, []]
-    }
-}
-
-export const getAllTasks = async () => {
-    let [failed, res] = await getJSON(`${BASE_URL}/api/get_tasks`)
-    // console.log(failed, res)
-    if (failed) {
-        return []
-    } else {
-        return res.tasks
-    }
-}
-
-export const addTaskToDB = async (data) => {
-    let [failed, res] = await getJSON(`${BASE_URL}/api/add_task/`, {
-        method: 'POST',
-        body: JSON.stringify(data)
-    })
-    console.log(failed, res)
-    if (!failed) {
-        addTask({ ...data, id: res.data })
-    }
-    return failed
-}
-
-
-export const deleteTaskFromDB = async (id) => {
-    let [failed, res] = await getJSON(`${BASE_URL}/api/delete_task/${id}/`, {
-        method: 'DELETE',
-    })
-    console.log(failed, res)
-    if (!failed) {
-        tasksSig.value= tasksSig.value.filter(t=>t.id!==id)
-    }
-    return failed
-}
-
-// addTaskToDB(
-//     {
-//         "title": "January Interterm Begins",
-//         "date": "2024-01-03",
-//         "freq": "yearly",
-//         "type": "school",
-//         "hint": "no-save",
-//         "time": (new Date()).getTime(),
-//     }
-// )
-
+// Custom hook to manage tasks using local storage
 export const useTasks = () => {
+    // Effect hook to run on component mount
     useEffect(() => {
-        (async () => {
-            let allTasks = await getAllTasks()
-            allTasks = [...allTasks, ...defaultTasks]
-            tasksSig.value = allTasks
-            console.log("Loaded tasks", tasksSig.value.length)
-        })()
-        console.log('called')
-    }, [])
+        // Retrieve tasks from local storage
+        const tasksStr = localStorage.getItem('tasks');
+        if (tasksStr) {
+            // Parse stored tasks and add default tasks
+            let allTasks = JSON.parse(tasksStr);
+            allTasks = [...allTasks, ...defaultTasks];
+            // Update tasksSig value with the combined tasks
+            tasksSig.value = allTasks;
+            console.log("Loaded tasks", tasksSig.value.length);
+        } else {
+            // If no stored tasks, set default tasks
+            tasksSig.value = [...defaultTasks];
+        }
+    }, []);
 
+    // Effect hook to run on component unmount or dependency change
+    useEffect(() => {
+        return () => {
+            // Filter out tasks with 'no-save' hint and save to local storage
+            const toSaveTasks = tasksSig.value.filter(t => t.hint !== 'no-save');
+            localStorage.setItem('tasks', JSON.stringify(toSaveTasks));
+            console.log('saved');
+        }
+    }, [tasksSig.value]);
 }
 
 
@@ -124,9 +89,9 @@ export const getCareMessage = () => {
 
 
 export const defaultTasks = [
-    {
+    { // in time, input day + 1 (bc 00:00), will show 1 day back on calendar
         "title": "January Interterm Begins",
-        "date": "2024-01-03",
+        "date": "2024-01-04",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
@@ -134,7 +99,7 @@ export const defaultTasks = [
     },
     {
         "title": "January ISP Drop/Add Deadline",
-        "date": "2024-01-05",
+        "date": "2024-01-06",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
@@ -142,34 +107,27 @@ export const defaultTasks = [
     },
     {
         "title": "Martin Luther King Jr. Day (No Classes; Offices Closed)",
-        "date": "2024-01-15",
+        "date": "2024-01-16",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
         "title": "Baccalaureate Exam Report Due (for January Degree Conferral)",
-        "date": "2024-01-19",
+        "date": "2024-01-20",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
         "title": "New Student Move-In Day",
-        "date": "2024-01-22",
+        "date": "2024-01-23",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
         "title": "Orientation for New Students",
-        "date": "2024-01-24",
-        "freq": "yearly",
-        "type": "school",
-        "hint": "no-save",
-    },
-    {
-        "title": "Mini-Classes",
         "date": "2024-01-25",
         "freq": "yearly",
         "type": "school",
@@ -183,56 +141,56 @@ export const defaultTasks = [
         "hint": "no-save",
     },
     {
+        "title": "Mini-Classes",
+        "date": "2024-01-27",
+        "freq": "yearly",
+        "type": "school",
+        "hint": "no-save",
+    },
+    {
         "title": "Report For-Credit Full-Term and Mod 1 Internships in Handshake Deadline",
-        "date": "2024-01-26",
+        "date": "2024-01-27",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
         "title": "January Interterm Ends",
-        "date": "2024-01-26",
+        "date": "2024-01-27",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
         "title": "January Degree Conferral",
-        "date": "2024-01-26",
+        "date": "2024-01-27",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
         "title": "Spring Classes Begin",
-        "date": "2024-01-29",
+        "date": "2024-01-30",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
         "title": "Spring Off-Campus Study (OCS) Contract and Tuition Waiver Deadline",
-        "date": "2024-01-29",
+        "date": "2024-01-30",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
         "title": "Residency Reclassification Application Deadline",
-        "date": "2024-02-02",
+        "date": "2024-02-03",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
         "title": "Contract Submission Deadline",
-        "date": "2024-02-07",
-        "freq": "yearly",
-        "type": "school",
-        "hint": "no-save",
-    },
-    {
-        "title": "Late Contract Submission Period ($50 Fee)",
         "date": "2024-02-08",
         "freq": "yearly",
         "type": "school",
@@ -246,57 +204,72 @@ export const defaultTasks = [
         "hint": "no-save",
     },
     {
+        "title": "Late Contract Submission Period ($50 Fee)",
+        "date": "2024-02-10",
+        "freq": "yearly",
+        "type": "school",
+        "hint": "no-save",
+    },
+    {
         "title": "Last Day for 100% Tuition Refund",
-        "date": "2024-02-09",
+        "date": "2024-02-10",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
         "title": "Tuition and Fees Payment Deadline ($100 Penalty)",
-        "date": "2024-02-09",
+        "date": "2024-02-10",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
         "title": "Presidents Day (No Classes; Offices Closed)",
-        "date": "2024-02-19",
+        "date": "2024-02-20",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
+        "title": "Data Structures",
+        "date": "2024-02-24",
+        "freq": "weekly",
+        "type": "school",
+        "hint": "no-save",
+        "time": [13, 0],
+    },
+    {
         "title": "Last Day for 25% Tuition Refund",
-        "date": "2024-02-23",
+        "date": "2024-02-24",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
         "title": "Financial Aid Unit Drop Grace Period Deadline",
-        "date": "2024-02-23",
+        "date": "2024-02-24",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
         "title": "Report For-Credit Mod 2 Internships in Handshake Deadline",
-        "date": "2024-03-15",
+        "date": "2024-03-16",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
         "title": "Final Payment Due on Payment Plans ($100 Penalty)",
-        "date": "2024-03-15",
+        "date": "2024-03-16",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
         "title": "Module I Ends",
-        "date": "2024-03-15",
+        "date": "2024-03-16",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
@@ -315,63 +288,56 @@ export const defaultTasks = [
     },
     {
         "title": "Module II Begins",
-        "date": "2024-03-25",
+        "date": "2024-03-26",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
         "title": "Deadline to Request Readmission for Fall Semester",
-        "date": "2024-04-01",
+        "date": "2024-04-02",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
         "title": "Thesis Prospectus Submission Deadline (6th Term)",
-        "date": "2024-04-01",
+        "date": "2024-04-02",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
         "title": "Off-Campus Study (OCS) Declaration Deadline",
-        "date": "2024-04-01",
+        "date": "2024-04-02",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
         "title": "Provisional AOC (PAOC) Submission Deadline (5th Term)",
-        "date": "2024-04-01",
+        "date": "2024-04-02",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
         "title": "Fall Semester Registration Begins",
-        "date": "2024-04-03",
-        "freq": "yearly",
-        "type": "school",
-        "hint": "no-save",
-    },
-    {
-        "title": "Advising Day",
         "date": "2024-04-04",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
-        "title": "Contract Renegotiation Deadline",
-        "date": "2024-04-19",
+        "title": "Advising Day",
+        "date": "2024-04-05",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
-        "title": "Baccalaureate/Reading Days (No Classes)",
-        "date": "2024-04-22",
+        "title": "Contract Renegotiation Deadline",
+        "date": "2024-04-20",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
@@ -391,29 +357,29 @@ export const defaultTasks = [
         "hint": "no-save",
     },
     {
+        "title": "Baccalaureate/Reading Days (No Classes)",
+        "date": "2024-04-25",
+        "freq": "yearly",
+        "type": "school",
+        "hint": "no-save",
+    },
+    {
         "title": "Spring Classes End",
-        "date": "2024-05-10",
+        "date": "2024-05-11",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
         "title": "Baccalaureate Examination Reports Due",
-        "date": "2024-05-10",
+        "date": "2024-05-11",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
         "title": "Evaluation Submission Deadline (potential graduates)",
-        "date": "2024-05-13",
-        "freq": "yearly",
-        "type": "school",
-        "hint": "no-save",
-    },
-    {
-        "title": "Reading Days (No Classes)",
-        "date": "2024-05-13",
+        "date": "2024-05-14",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
@@ -426,57 +392,64 @@ export const defaultTasks = [
         "hint": "no-save",
     },
     {
-        "title": "Certification Submission Deadline (potential graduates)",
-        "date": "2024-05-14",
-        "freq": "yearly",
-        "type": "school",
-        "hint": "no-save",
-    },
-    {
-        "title": "Final Exams/Advising",
+        "title": "Reading Days (No Classes)",
         "date": "2024-05-15",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
+        "title": "Certification Submission Deadline (potential graduates)",
+        "date": "2024-05-15",
+        "freq": "yearly",
+        "type": "school",
+        "hint": "no-save",
+    },
+    {
+        "title": "Final Exams/Advising",
+        "date": "2024-05-16",
+        "freq": "yearly",
+        "type": "school",
+        "hint": "no-save",
+    },
+    {
         "title": "Commencement (May, Aug, Jan degree conferrals included)",
-        "date": "2024-05-17",
+        "date": "2024-05-18",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
         "title": "Evaluation Submission Deadline (students on probation)",
-        "date": "2024-05-21",
-        "freq": "yearly",
-        "type": "school",
-        "hint": "no-save",
-    },
-    {
-        "title": "Contract Certification Deadline (students on probation)",
         "date": "2024-05-22",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
+        "title": "Contract Certification Deadline (students on probation)",
+        "date": "2024-05-23",
+        "freq": "yearly",
+        "type": "school",
+        "hint": "no-save",
+    },
+    {
         "title": "Memorial Day (Offices Closed)",
-        "date": "2024-05-27",
+        "date": "2024-05-28",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
         "title": "Interterm ISP Evaluation Deadline",
-        "date": "2024-05-29",
+        "date": "2024-05-30",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
     },
     {
         "title": "Evaluation and Contract Submission Deadline",
-        "date": "2024-05-29",
+        "date": "2024-05-30",
         "freq": "yearly",
         "type": "school",
         "hint": "no-save",
