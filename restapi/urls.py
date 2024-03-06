@@ -1,5 +1,5 @@
 """
-URL configuration for SEProject1 project.
+URL configuration for backend project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
@@ -14,17 +14,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.conf import settings
-from django.urls import path, include
-from django.conf.urls.static import static
+from django.urls import path
 
+from .rest_api import add_task, get_tasks, delete_task
 
 urlpatterns = [
-    path('leaderboard/', include('Leaderboard.urls')),
-    path('admin/', admin.site.urls),
-    path('profile/', include('Profile.urls'), name='profile'),
-    path('', include('NovoTaskNinja.urls')),
-    path('api/', include('restapi.urls')),
+
+    # API OR CALENDER
+    path('add_task/', add_task,name='add_task'),
+    path('get_tasks/', get_tasks,name='get_tasks'),
+    path('delete_task/<int:task_id>/', delete_task,name='delete_task'),
+   
     
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
