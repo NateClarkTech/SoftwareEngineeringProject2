@@ -1,7 +1,6 @@
 from django.db import models
 from django import forms
 from .models import *
-from django.contrib.auth.models import User
 
 class Meta:
     ordering = ['name']
@@ -9,7 +8,6 @@ class Meta:
 class Task(models.Model):
 
     name = models.CharField(max_length=200)
-    description = models.CharField(max_length=200, default="")
     id = models.AutoField(primary_key=True)
     completed = models.BooleanField(default=False)
     # everytime an item is created, it will be automatically added
@@ -17,12 +15,7 @@ class Task(models.Model):
 
     def __str__(self):
         return self.name
-
-class ShoppingList(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE) 
-    boxNumber = models.IntegerField()
-    checked = models.BooleanField(default=False)
-
+      
 class InProgressCourse(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     start_time = models.TimeField(null=True, blank=True)
@@ -55,6 +48,7 @@ class foodDay(models.Model):
     def __str__(self):
         return self.name
 
+
 class Event:
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     id = models.AutoField(primary_key=True)
@@ -78,3 +72,8 @@ class Message(models.Model):
     
 class Leaderboard():
     user = models.OneToOneField(User, on_delete=models.CASCADE) 
+
+class ShoppingList(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE) 
+    boxNumber = models.IntegerField()
+    checked = models.BooleanField(default=False)
