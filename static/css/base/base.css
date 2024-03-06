@@ -85,3 +85,39 @@ body {
     font-weight: bolder;
     font-size: 1.2rem;
 }
+
+
+.modal-header {
+    background-color: #007bff; /* Your primary color */
+    color: #ffffff; /* Text color */
+}
+.modal-title {
+    font-weight: bold;
+}
+.modal-content {
+    border-radius: 0.5rem; /* Rounded corners for the modal */
+}
+.modal-body {
+    background-color: #f8f9fa; /* Light background for the modal body */
+}
+.btn-close {
+    /* Custom close button styles if needed */
+}
+.modal-footer {
+    border-top: none; /* Remove default border-top */
+}
+.btn-outline-success {
+    border-color: #007bff; /* Match your theme */
+    color: #007bff; /* Match your theme */
+}
+.btn-outline-success:hover {
+    background-color: #007bff; /* Match your theme */
+    color: #ffffff; /* Match your theme */
+}
+/* Ensure links in the modal body match your app's link styles */
+.modal-body a {
+    color: #007bff; /* Primary color for links */
+}
+.modal-body a:hover {
+    text-decoration: underline; /* Underline on hover for links */
+}
