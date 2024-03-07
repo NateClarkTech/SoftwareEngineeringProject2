@@ -4,14 +4,17 @@
 
 {% block extendHeader %}
 <style>
-    body, html {
-        font-family: 'Helvetica Neue', Arial, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-    
+    @media (max-width: 992px) {
+        .navbar {
+            padding: 0.5rem 1rem;
+            body, html {        
+                height: 100%;
+                
+            
+            }
+        }
     }
+   
     .navbar, .nav-section, .fixed-bottom.bg-primary, .modal-content {
         border-color: #dee2e6;
     }
@@ -23,7 +26,7 @@
         flex-direction: column;
     }
     .profile-image {
-        max-width: 600px;
+        max-width: 99% !important;
         border: 4px solid #007bff;
     }
     a, a:hover {
@@ -34,6 +37,18 @@
         border-bottom: 1px solid #dee2e6;
         border-top: 1px solid #dee2e6;
     }
+    @media (max-width: 992px) {
+        body, html {        
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+
+        }
+        #content {
+            flex: 1 0 auto;
+        }
+    }
+
 </style>
 {% endblock %}
 
@@ -95,11 +110,20 @@
                 {% if profile.highschool %}
                     <p>High School: {{ profile.highschool }}</p>
                 {% endif %}
+                {% if profile.likes %}
+                    <p>Likes: {{ profile.likes }}</p>
+                {% endif %}
+
 
                 <!-- Quick Info Section -->
                 <h3>Quick Info</h3>
                 <p><strong>Dorm Preferences:</strong> {{ profile.dorm_preferences }}</p>
                 <p><strong>Major:</strong> {{ profile.major }}</p>
+                {%if profile.current_student %}
+                    <p><strong>Current Student:</strong> Yes</p>
+                {% else %}
+                    <p><strong>Current Student:</strong> No</p>
+                {% endif %}
             </div>
         </div>
     </div>

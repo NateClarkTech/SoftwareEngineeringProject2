@@ -14,7 +14,7 @@ class ProfileUpdateForm(forms.ModelForm):
         model = Profile
         fields = [
             'profile_picture', 'personal_info', 'dorm_preferences', 'major',
-            'graduation_year', 'hometown', 'homestate', 'highschool', 'looking_for_roommate',
+            'graduation_year', 'current_student', 'hometown', 'likes', 'homestate', 'highschool', 'looking_for_roommate',
             'email', 'phone_number', 'snapchat', 'instagram'
         ]
         widgets = {
