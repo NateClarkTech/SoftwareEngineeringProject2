@@ -9,6 +9,8 @@
                 <div><a href="{% url 'calendar' %}">🗓️ Calendar</a></div>
                 <div><a href="{% url 'ncfhours' %}">📚 NCF Hours</a></div>
                 <div><a href="{% url 'dontkillmefood' %}">🍔 Don't Kill Me Food</a></div>
+                <!-- Link to the novo connect page -->
+                <div><a href="https://novoconnect.ncf.edu/organizations">Student Organizations</a></div>
                 <form method="get" action="{% url 'Profile:search_profiles' %}" class="d-flex">
                     <input class="form-control me-2" type="search" name="query" placeholder="Search Profiles" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
@@ -60,6 +62,8 @@
                         <a href="{% url 'calendar' %}" class="d-block">🗓️ Calendar</a>
                         <a href="{% url 'ncfhours' %}" class="d-block">📚 NCF Hours</a>
                         <a href="{% url 'dontkillmefood' %}" class="d-block">🍔 Don't Kill Me Food</a>
+                        <!-- Link to the novo connect page -->
+                        <a href="https://novoconnect.ncf.edu/organizations" class="d-block">Student Organizations</a>
                         <form method="get" action="{% url 'Profile:search_profiles' %}" class="d-flex">
                             <input class="form-control me-2" type="search" name="query" placeholder="Search Profiles" aria-label="Search">
                             <button class="btn btn-outline-success" type="submit">Search</button>

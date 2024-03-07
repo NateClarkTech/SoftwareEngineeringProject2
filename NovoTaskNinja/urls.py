@@ -14,6 +14,7 @@ urlpatterns = [
 
     # Frontend-Heavy Pages
     path('', views.home, name='calendar'),
+    path('calendar/', views.calendar, name='calendar'),
     path('timer/', views.timer, name='timer'),
     path('ncfhours/', views.ncfhours, name='ncfhours'),
     path('surprise/', views.surprise, name='surprise'),
