@@ -125,6 +125,10 @@
                     <p><strong>Current Student:</strong> No</p>
                 {% endif %}
             </div>
+            <!-- Show the back to search button if needed-->
+            {% if request.GET.search %}
+            <a href="{% url 'Profile:search_profiles' %}?query={{ request.GET.search }}" class="btn btn-primary">Back to Search</a>
+            {% endif %}
         </div>
     </div>
 </div>

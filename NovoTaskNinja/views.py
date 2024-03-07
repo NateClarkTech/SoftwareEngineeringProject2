@@ -164,3 +164,6 @@ def bilgestodo(request):
     return render(request, 'bilgestodo.html', context)
 
 
+# Home page view
+def home(request):
+    return render(request, 'home.html')

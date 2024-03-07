@@ -31,7 +31,7 @@
         <div class="fixed-bottom bg-primary d-lg-none">
             <nav class="navbar navbar-dark navbar-expand d-flex justify-content-around">
                 <!-- If the user is authenticated, the home icon takes them to profile, otherwise it redirects to login-->
-                <a href="{% if user.is_authenticated %}{% url 'Profile:profile' %}{% else %}{% url 'Profile:login' %}{% endif %}" class="navbar-brand">
+                <a href="{% if user.is_authenticated %}{% url 'Profile:profile' %}{% else %}{% url 'calendar' %}{% endif %}" class="navbar-brand">
                     <img src="{% static 'media/HomeIcon.png' %}" alt="Home" style="width: 24px; height: 24px;">
 
                 <a href="{% url 'calendar' %}" class="navbar-brand">
