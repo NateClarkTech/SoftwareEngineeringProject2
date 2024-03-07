@@ -18,6 +18,8 @@ urlpatterns = [
     path('ncfhours/', views.ncfhours, name='ncfhours'),
     path('surprise/', views.surprise, name='surprise'),
     
+    # Student organization page
+    path('student_organizations/', views.student_organizations, name='orgs'),
     
 
     
