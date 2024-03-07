@@ -2,6 +2,19 @@
 
 {% block title %}Search Profiles{% endblock %}
 
+{% block extendHeader %}
+<style>
+    .profile {
+        display: inline-block;
+        margin: 10px;
+        text-align: center;
+    }
+    .profile img {
+        max-width: 40%;
+        border: 4px solid #007bff;
+    }
+
+{% endblock %}
 {% block content %}
 <div class="container">
     <h1>Search Profiles</h1>
