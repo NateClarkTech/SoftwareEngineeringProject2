@@ -13,8 +13,10 @@ class Profile(models.Model):
     dorm_preferences = models.CharField(max_length=100, blank=True)
     major = models.CharField(max_length=100, blank=True)
     graduation_year = models.IntegerField(blank=True, null=True)
+    current_student = models.BooleanField(default=True)
 
     # Adding in extra stuff about the user
+    likes = models.CharField(max_length=100, blank=True)
     hometown = models.CharField(max_length=100, blank=True)
     homestate = models.CharField(max_length=100, blank=True)
     highschool = models.CharField(max_length=100, blank=True)

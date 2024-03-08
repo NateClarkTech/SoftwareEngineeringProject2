@@ -164,3 +164,10 @@ def bilgestodo(request):
     return render(request, 'bilgestodo.html', context)
 
 
+# Home page view
+def home(request):
+    return render(request, 'home.html')
+
+# Student organization page view
+def student_organizations(request):
+    return render(request, 'student_organizations.html')
