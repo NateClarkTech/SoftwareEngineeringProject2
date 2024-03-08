@@ -1,7 +1,7 @@
 from django.db import models
 from django import forms
 from .models import *
-from django.contrib.auth.models import User
+from authentication.models import User
 
 class Meta:
     ordering = ['name']
@@ -73,3 +73,8 @@ class Message(models.Model):
     
 class Leaderboard():
     user = models.OneToOneField(User, on_delete=models.CASCADE) 
+
+class ShoppingList(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE) 
+    boxNumber = models.IntegerField()
+    checked = models.BooleanField(default=False)
