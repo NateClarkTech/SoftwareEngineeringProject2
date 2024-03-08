@@ -9,12 +9,11 @@
             padding: 0.5rem 1rem;
             body, html {        
                 height: 100%;
-                
-            
+                display: flex;
             }
         }
     }
-   
+
     .navbar, .nav-section, .fixed-bottom.bg-primary, .modal-content {
         border-color: #dee2e6;
     }
@@ -43,11 +42,9 @@
             display: flex;
             flex-direction: column;
 
-        }
-        #content {
-            flex: 1 0 auto;
-        }
+        }        
     }
+
 
 </style>
 {% endblock %}
@@ -61,8 +58,9 @@
                 <!-- Profile Image -->
                 {% if profile.profile_picture %}
                     <div class="text-center mb-3">
-                        <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-image img-fluid mx-auto d-block">
-                        <h2 class="mt-2">{{ profile.user.username }}
+                        <div class="profile-picture-wrapper">
+                            <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="img-fluid">
+                        </div>                        <h2 class="mt-2">{{ profile.user.username }}
                         {% if profile.graduation_year %}
                             <span class="badge bg-primary">{{ profile.graduation_year }}</span>
                         {% endif %}
