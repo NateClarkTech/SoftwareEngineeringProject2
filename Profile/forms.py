@@ -1,6 +1,7 @@
 from .models import *;
 from django import forms
 from django.contrib.auth.models import User
+from datetime import date
 
 class UserUpdateForm(forms.ModelForm):
     class Meta:
@@ -21,7 +22,14 @@ class ProfileUpdateForm(forms.ModelForm):
             'personal_info': forms.Textarea(attrs={'rows': 4}),
             'looking_for_roommate': forms.CheckboxInput(),
         }
-        
+    # Add Some validation for the graduation year,  https://docs.djangoproject.com/en/5.0/ref/forms/validation/
+    def clean_graduation_year(self):
+        graduation_year = self.cleaned_data.get('graduation_year')
+        current_year = date.today().year
+        if graduation_year < current_year - 10 or graduation_year > current_year + 10:
+            raise forms.ValidationError("Invalid graduation year.")
+        return graduation_year
+
 # A profile search form from gpt
 class ProfileSearchForm(forms.Form):
     query = forms.CharField(label='Search Profiles', max_length=100)

@@ -86,11 +86,9 @@
                         <p>Instagram: {{ profile.instagram }}</p>
                     {% endif %}
                 </div>
-                <!-- Edit Profile Button -->
-                {% if request.user == profile.user %}
-                    <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#editProfileModal">
-                        Edit Profile
-                    </button>
+                <!-- Button to link to the edit profile page -->
+                {% if user.is_authenticated and user == profile.user %}
+                    <a href="{% url 'Profile:edit_profile' %}" class="btn btn-primary">Edit Profile</a>
                 {% endif %}
             </div>
         </div>
@@ -136,27 +134,5 @@
 <!-- Edit Profile Modal -->
 <!-- Modal code remains the same as before -->
 
-<!-- Edit Profile Modal -->
-<div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-              <!-- Profile Edit Form -->
-              <form method="POST" enctype="multipart/form-data">
-                  {% csrf_token %}
-                  {{ form.as_p }}
-                  <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Save Changes</button>
-                  </div>
-              </form>
-          </div>
-      </div>
-  </div>
-</div>
 
 {% endblock %}

@@ -13,11 +13,13 @@ urlpatterns = [
     path('dontkillmefood/', views.dontkillmefood, name='dontkillmefood'),
 
     # Frontend-Heavy Pages
-    path('', views.home, name='calendar'),
+    path('', views.calendar, name='calendar'),
     path('calendar/', views.calendar, name='calendar'),
     path('timer/', views.timer, name='timer'),
     path('ncfhours/', views.ncfhours, name='ncfhours'),
     path('surprise/', views.surprise, name='surprise'),
+    
+    path('home/', views.home, name='home'),
     
     # Student organization page
     path('student_organizations/', views.student_organizations, name='orgs'),
