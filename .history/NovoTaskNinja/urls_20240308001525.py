@@ -12,6 +12,7 @@ urlpatterns = [
     # Frontend-Heavy Pages
     path('', views.calendar, name='calendar'),
     path('ncfhours/', views.ncfhours, name='ncfhours'),
+    path('shoppinglist/', include('ShoppingList.urls')),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
