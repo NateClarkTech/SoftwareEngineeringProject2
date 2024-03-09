@@ -76,6 +76,7 @@ def logout_view(request):
     logout(request)
     return redirect('calendar')
 
+
 def edit_profile(request):
     profile, created = Profile.objects.get_or_create(user=request.user)
     if request.method == 'POST':
