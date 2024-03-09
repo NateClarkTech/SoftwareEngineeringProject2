@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+<style>
+    
+    .auth-form-container {
+        max-width: 400px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: #ffffff;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .auth-form-container h2 {
+        margin-bottom: 1.5rem;
+    }
+    .auth-form-container button {
+        width: 100%;
+        margin-top: 1rem;
+    }
+    .auth-form-container p {
+        margin-top: 1rem;
+    }
+    @media (max-width: 767px) {
+        .auth-form-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+    
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="auth-form-container">
+    <h2>Login</h2>
+    <form method="post" class="form-group">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Login</button>
+        <p>Don't have an account? <a href="{% url 'Profile:register' %}" class="text-primary">Register here</a>.</p>
+    </form>
+</div>
+{% endblock %}
