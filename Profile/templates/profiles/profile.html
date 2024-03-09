@@ -4,113 +4,71 @@
 
 {% block extendHeader %}
 <style>
-    body, html {
-        height: 100%;
-        margin: 0;
-        padding: 0;
+    @media (max-width: 992px) {
+        .navbar {
+            padding: 0.5rem 1rem;
+            body, html {        
+                height: 100%;
+                display: flex;
+            }
+        }
     }
-    .body-cont {
+
+    .navbar, .nav-section, .fixed-bottom.bg-primary, .modal-content {
+        border-color: #dee2e6;
+    }
+    .profile-container, .profile-info {
+        border-radius: 0.25rem;
+        padding: 20px;
+        margin-bottom: 20px;
         display: flex;
         flex-direction: column;
-        height: 100%;
     }
-    #content {
-        flex-grow: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
+    .profile-image {
+        max-width: 99% !important;
+        border: 4px solid #007bff;
     }
-    /* Adjustments for desktop */
-    @media (min-width: 992px) { /* Adjust based on your sidebar breakpoint */
-        .body-cont {
-            flex-direction: row;
-        }
-        .nav-section {
-            display: block;
-            width: 300px; /* Adjust based on your sidebar width */
-            flex-shrink: 0; /* Prevent the sidebar from shrinking */
-        }
-        #content {
-            width: calc(100% - 300px); /* Take remaining space */
-            justify-content: flex-start;
-            align-items: flex-start;
-            padding: 20px;
-        }
-        .profile-container {
-            max-width: 100%;
-            width: 100%; /* Use available space */
-            display: block; /* Stack content vertically */
-        }
+    a, a:hover {
+        text-decoration: none;
+        color: #007bff;
     }
-    /* Additional profile page styling */
-    .profile-page {
-        display: flex;
-        flex-direction: column; /* Stack vertically on mobile */
+    .modal-header, .modal-footer {
+        border-bottom: 1px solid #dee2e6;
+        border-top: 1px solid #dee2e6;
     }
-    @media (max-width: 768px) {
-        /* Adjustments for mobile */
-        .profile-picture {
-            width: 120px;
-            height: 120px;
-        }
-        .profile-header, .profile-details {
-            padding: 0.5rem;
-        }
-        .profile-details p {
-            font-size: 0.9rem;
-        }
+    @media (max-width: 992px) {
+        body, html {        
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+
+        }        
     }
+
+
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="container profile-container">
-    <div class="profile-header text-center">
-        <div>
-            {% if profile.profile_picture %}
-                <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-image img-fluid mx-auto d-block">
-            {% endif %}
-        </div>
-        <h2>{{ profile.user.username }} {% if profile.graduation_year %} 
-            <span class="badge bg-primary">{{ profile.graduation_year }}</span>
-            {% endif %}
-        </h2>
-    </div>
     <div class="row">
+        <!-- Left Column for Profile Image and Contact Information -->
         <div class="col-md-5">
             <div class="profile-info bg-white border rounded p-3 shadow-sm">
-                <div class="profile-info">
-                <h3>About</h3>
-                <p>{{ profile.personal_info }}</p>
-                {% if profile.hometown %}
-                    <p>Hometown: {{ profile.hometown }}</p>
+                <!-- Profile Image -->
+                {% if profile.profile_picture %}
+                    <div class="text-center mb-3">
+                        <div class="profile-picture-wrapper">
+                            <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="img-fluid">
+                        </div>                        <h2 class="mt-2">{{ profile.user.username }}
+                        {% if profile.graduation_year %}
+                            <span class="badge bg-primary">{{ profile.graduation_year }}</span>
+                        {% endif %}
+                        </h2>
+                    </div>
                 {% endif %}
-                {% if profile.homestate %}
-                    <p>Home State: {{ profile.homestate }}</p>
-                {% endif %}
-                {% if profile.highschool %}
-                    <p>High School: {{ profile.highschool }}</p>
-                {% endif %}
-                </div>
-                <h3>Quick Info</h3>
-                <p><strong>Dorm Preferences:</strong> {{ profile.dorm_preferences }}</p>
-                <p><strong>Major:</strong> {{ profile.major }}</p>
-            </div>
-        </div>
-        <div class="col-md-7">
-            <div class="profile-info bg-white border rounded p-3 shadow-sm">
-              <div class="col-12 col-lg-8">
 
-                <div class="profile-info"><!--
-                    <h3>School Information</h3>
-                    {% if profile.dorm_preferences %}
-                        <p><strong>Dorm Preferences: </strong>{{ profile.dorm_preferences }}</p>
-                    {% endif %}
-                    {% if profile.looking_for_roommate %}
-                        <p>Looking for Roommate: {{ profile.looking_for_roommate|yesno:"Yes,No" }}</p>
-                    {% endif %}-->
-                </div>
+                <!-- Contact Information -->
                 <div class="contact-info">
                     <h3>Contact Information</h3>
                     {% if profile.email %}
@@ -126,13 +84,47 @@
                         <p>Instagram: {{ profile.instagram }}</p>
                     {% endif %}
                 </div>
-                <!-- If the profile is the one currently logged in and we are on the specefic profile page and not at profile/other-->
-                {% if request.user == profile.user %}
-                <button type="button" class="btn btn-primary edit-profile-btn" data-bs-toggle="modal" data-bs-target="#editProfileModal">
-                    Edit Profile
-                </button>
+                <!-- Button to link to the edit profile page -->
+                {% if user.is_authenticated and user == profile.user %}
+                    <a href="{% url 'Profile:edit_profile' %}" class="btn btn-primary">Edit Profile</a>
                 {% endif %}
             </div>
+        </div>
+
+        <!-- Right Column for About and Quick Info -->
+        <div class="col-md-7">
+            <div class="profile-info bg-white border rounded p-3 shadow-sm">
+                <!-- About Section -->
+                <h3>About</h3>
+                <p>{{ profile.personal_info }}</p>
+                {% if profile.hometown %}
+                    <p>Hometown: {{ profile.hometown }}</p>
+                {% endif %}
+                {% if profile.homestate %}
+                    <p>Home State: {{ profile.homestate }}</p>
+                {% endif %}
+                {% if profile.highschool %}
+                    <p>High School: {{ profile.highschool }}</p>
+                {% endif %}
+                {% if profile.likes %}
+                    <p>Likes: {{ profile.likes }}</p>
+                {% endif %}
+
+
+                <!-- Quick Info Section -->
+                <h3>Quick Info</h3>
+                <p><strong>Dorm Preferences:</strong> {{ profile.dorm_preferences }}</p>
+                <p><strong>Major:</strong> {{ profile.major }}</p>
+                {%if profile.current_student %}
+                    <p><strong>Current Student:</strong> Yes</p>
+                {% else %}
+                    <p><strong>Current Student:</strong> No</p>
+                {% endif %}
+            </div>
+            <!-- Show the back to search button if needed-->
+            {% if request.GET.search %}
+            <a href="{% url 'Profile:search_profiles' %}?query={{ request.GET.search }}" class="btn btn-primary">Back to Search</a>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -140,27 +132,6 @@
 <!-- Edit Profile Modal -->
 <!-- Modal code remains the same as before -->
 
-<!-- Edit Profile Modal -->
-<div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-              <!-- Profile Edit Form -->
-              <form method="POST" enctype="multipart/form-data">
-                  {% csrf_token %}
-                  {{ form.as_p }}
-                  <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Save Changes</button>
-                  </div>
-              </form>
-          </div>
-      </div>
-  </div>
-</div>
+
 
 {% endblock %}

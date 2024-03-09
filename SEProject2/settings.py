@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-+hs1b_axs2%4@ghcgl8st8_t-8)lvr#a21(9&6-tn59p@*3*pq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['novotaskninja.pythonanywhere.com', 'www.novotaskninja.pythonanywhere.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['kinjen.pythonanywhere.com', 'www.kinjen.pythonanywhere.com', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'SEProject2.urls'
