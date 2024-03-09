@@ -25,9 +25,10 @@ class ProfileUpdateForm(forms.ModelForm):
     # Add Some validation for the graduation year,  https://docs.djangoproject.com/en/5.0/ref/forms/validation/
     def clean_graduation_year(self):
         graduation_year = self.cleaned_data.get('graduation_year')
-        current_year = date.today().year
-        if graduation_year < current_year - 10 or graduation_year > current_year + 10:
-            raise forms.ValidationError("Invalid graduation year.")
+        if graduation_year:
+            current_year = date.today().year
+            if graduation_year < current_year - 10 or graduation_year > current_year + 10:
+                raise forms.ValidationError("Invalid graduation year.")
         return graduation_year
 
 # A profile search form from gpt
