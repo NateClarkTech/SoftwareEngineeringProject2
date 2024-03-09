@@ -5,4 +5,4 @@ class ShoppinglistConfig(AppConfig):
     name = 'ShoppingList'
 
     def ready(self):
-        import ShoppingList.signals
+        import ShoppingList.singals

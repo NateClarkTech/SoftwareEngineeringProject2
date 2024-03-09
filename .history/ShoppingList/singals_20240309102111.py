@@ -4,9 +4,9 @@ from django.dispatch import receiver
 from .models import ShoppingListItem
 
 @receiver(post_save, sender=User)
-def create_or_update_user_profile(sender, instance, created, **kwargs):
+def create_user_shopping_list(sender, instance, created, **kwargs):
     if created:
-        ShoppingListItem.objects.create(user=instance, name="Twin XL bedding set", category="Room Essentials", url="https://www.amazon.com/s?k=twin+xl+sheet+sets")
+        ShoppingListItem.objects.create(user=instance, name="Twin XL bedding set", category="Room Essentials", url="https://www.amazon.com/s?k=twin+xl+sheet+sets").save()
         ShoppingListItem.objects.create(user=instance, name="Pillows", category="Room Essentials", url="https://www.amazon.com/s?k=bed+pillow")
         ShoppingListItem.objects.create(user=instance, name="Mattress pad", category="Room Essentials", url="https://www.amazon.com/s?k=mattress+pad")
         ShoppingListItem.objects.create(user=instance, name="Comforter and/or blanket", category="Room Essentials", url="https://www.amazon.com/s?k=comforter")
