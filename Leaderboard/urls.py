@@ -5,6 +5,7 @@ urlpatterns = [
     path('', views.checklist, name='checklist'),
     path('checklist/', views.checklist, name='checklist'),
     path('update_checklist/', views.update_checklist, name='update_checklist'),
+    path('reset-tasks', views.reset_tasks),
     path('leaderboard/', views.leaderboard_view, name='leaderboard'),
 
 ]

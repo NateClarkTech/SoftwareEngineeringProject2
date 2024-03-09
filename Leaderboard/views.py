@@ -17,7 +17,12 @@ def checklist(request):
         'task2': user_checklist.task2,
         'task3': user_checklist.task3,
         'task4': user_checklist.task4,
-        'task5': user_checklist.task5
+        'task5': user_checklist.task5,
+        'task6': user_checklist.task6,
+        'task7': user_checklist.task7,
+        'task8': user_checklist.task8,
+        'task9': user_checklist.task9,
+        'task10': user_checklist.task10
     }
     return render(request, 'checklist.html', context)
 
@@ -34,10 +39,39 @@ def update_checklist(request):
         user_checklist.task3 = request.POST.get('task3') == 'true'
         user_checklist.task4 = request.POST.get('task4') == 'true'
         user_checklist.task5 = request.POST.get('task5') == 'true'
+        user_checklist.task6 = request.POST.get('task6') == 'true'
+        user_checklist.task7 = request.POST.get('task7') == 'true'
+        user_checklist.task8 = request.POST.get('task8') == 'true'
+        user_checklist.task9 = request.POST.get('task9') == 'true'
+        user_checklist.task10 = request.POST.get('task10') == 'true'
 
         # Update the score
         user_checklist.update_score()
 
+        return JsonResponse({'status': 'success'})
+    
+
+@csrf_exempt
+def reset_tasks(request):
+    if request.method == 'POST':
+        # Assuming the user is authenticated and available as request.user
+        checklist = Checklist.objects.get(user=request.user)
+
+        # Reset all tasks and score
+        checklist.task1 = request.POST.get('task1') != 'false'
+        checklist.task2 = request.POST.get('task2') != 'false'
+        checklist.task3 = request.POST.get('task3') != 'false'
+        checklist.task4 = request.POST.get('task4') != 'false'
+        checklist.task5 = request.POST.get('task5') != 'false'
+        checklist.task6 = request.POST.get('task6') != 'false'
+        checklist.task7 = request.POST.get('task7') != 'false'
+        checklist.task8 = request.POST.get('task8') != 'false'
+        checklist.task9 = request.POST.get('task9') != 'false'
+        checklist.task10 = request.POST.get('task10') != 'false'
+        checklist.score = int(request.POST.get('score'))
+        checklist.save()
+
+        # Return a success response
         return JsonResponse({'status': 'success'})
     
 def leaderboard_view(request):

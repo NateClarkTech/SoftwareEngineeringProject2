@@ -1,0 +1,12 @@
+.card {
+    border: solid;
+    border-color: #003087;
+}
+
+.card-text {
+    color: #7BAFD4;
+}
+
+.card-title {
+    color: #003087;
+}

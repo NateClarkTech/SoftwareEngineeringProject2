@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('leaderboard/', include('Leaderboard.urls')),
+    path('dorms/', include('dorms.urls')),
     
     path('admin/', admin.site.urls),
     path('', include('NovoTaskNinja.urls')),

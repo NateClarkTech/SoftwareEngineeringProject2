@@ -12,29 +12,96 @@ function sendUpdate() {
             'task2': document.getElementById('checkbox2').checked,
             'task3': document.getElementById('checkbox3').checked,
             'task4': document.getElementById('checkbox4').checked,
-            'task5': document.getElementById('checkbox5').checked
+            'task5': document.getElementById('checkbox5').checked,
+            'task6': document.getElementById('checkbox6').checked,
+            'task7': document.getElementById('checkbox7').checked,
+            'task8': document.getElementById('checkbox8').checked,
+            'task9': document.getElementById('checkbox9').checked,
+            'task10': document.getElementById('checkbox10').checked
         })
     });
 }
 
-for (let i = 1; i <= 5; i++) {
+var scalar = 2;
+var unicorn = confetti.shapeFromText({ text: '🦄', scalar });
+
+var defaults = {
+  spread: 360,
+  ticks: 60,
+  gravity: 0,
+  decay: 0.96,
+  startVelocity: 20,
+  shapes: [unicorn],
+  scalar
+};
+
+function shoot() {
+  confetti({
+    ...defaults,
+    particleCount: 30
+  });
+
+  confetti({
+    ...defaults,
+    particleCount: 5,
+    flat: true
+  });
+
+  confetti({
+    ...defaults,
+    particleCount: 15,
+    scalar: scalar / 2,
+    shapes: ['circle']
+  });
+}
+
+for (let i = 1; i <= 10; i++) {
     let checkbox = document.getElementById('checkbox' + i);
     checkbox.addEventListener('change', function() {
-        var card = document.getElementById('card' + i);
-        if (this.checked) {
-            card.classList.add('bg-primary');
-            this.disabled = true;  // Disable the checkbox
-            var toastElList = [].slice.call(document.querySelectorAll('.toast'))
-            var toastList = toastElList.map(function (toastEl) {
-                return new bootstrap.Toast(toastEl, {
-                    autohide: false  // Make the toast stay until the user closes it
-                })
-            });
-            toastList.forEach(toast => toast.show());  // Show the toast
-        } else {
-            card.classList.remove('bg-primary');
-        }
+        this.disabled = true;  // Disable the checkbox
         sendUpdate();  // Send the update to the server
+
+        // Trigger a custom confetti effect
+        setTimeout(shoot, 0);
+        setTimeout(shoot, 100);
+        setTimeout(shoot, 200);
+
+        let allChecked = true;
+        for (let j = 1; j <= 10; j++) {
+            if (!document.getElementById('checkbox' + j).checked) {
+                allChecked = false;
+                break;
+            }
+        }
+
+        // If all checkboxes are checked, trigger a different confetti effect
+        if (allChecked) {
+            var end = Date.now() + (15 * 1000);
+
+            // go Buckeyes!
+            var colors = ['#FFBF3F',' 003087'];
+
+            (function frame() {
+              confetti({
+                particleCount: 2,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 },
+                colors: colors
+              });
+              confetti({
+                particleCount: 2,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 },
+                colors: colors
+              });
+
+              if (Date.now() < end) {
+                requestAnimationFrame(frame);
+              }
+            }());
+        }
     });
 }
 
@@ -54,12 +121,24 @@ function getCookie(name) {
 }
 
 window.onload = function() {
-    for (let i = 1; i <= 5; i++) {
+    for (let i = 1; i <= 10; i++) {
         let checkbox = document.getElementById('checkbox' + i);
-        let card = document.getElementById('card' + i);
         if (checkbox.checked) {
-            card.classList.add('bg-primary');
             checkbox.disabled = true;
         }
     }
 };
+
+document.getElementById('reset-button').addEventListener('click', function() {
+    // Reset all checkboxes
+    var checkboxes = document.querySelectorAll('input[type=checkbox]');
+    for (var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].checked = false;
+    }
+
+    // Send the update to the server
+    sendUpdate();
+
+    // Refresh page to undisable buttons
+    location.reload();
+});
