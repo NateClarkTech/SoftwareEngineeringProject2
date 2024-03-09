@@ -7,15 +7,9 @@
 
 {% block content %}    
 <div>
-    {% if user.is_authenticated %}
-    <h2>Shopping List</h2>
-    <ul>
+    {% if user.is_authenticated and user == shoppingItems.user %}
         {% for item in shoppingItems %}
             <li>{{ item.name }}</li>
         {% endfor %}
     </ul>
-    {% else %}
-    <p>You are not logged in</p>
-    {% endif %}
-</div>
 {% endblock %}
