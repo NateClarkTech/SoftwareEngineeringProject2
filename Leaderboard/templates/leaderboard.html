@@ -1,19 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
+{% extends "base.html" %}
+{% load static %}
+
+    {% block title %}
+    Leaderboard
+    {% endblock %}
+
+    {% block css %}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link rel="stylesheet" href="/static/css/leaderboard.css">
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="{% static 'css/leaderboard.css' %}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap" rel="stylesheet"/>
+    {% endblock %}
+
+    {% block content %}
+  <div class="main-container">
     <main>
       <div id="header">
         <h1>Ranking</h1>
@@ -39,5 +42,5 @@
         </table>
       </div>
     </main>
-  </body>
-</html>
+  </div>
+    {% endblock %}

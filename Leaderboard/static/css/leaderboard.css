@@ -10,7 +10,16 @@
     min-height: 100vh;
     background-color: #fbfaff;
     display: flex;
-    align-items: center;
+  }
+
+  .navbar {
+    /* Other styles... */
+    flex: 0 0 auto; /* This will prevent the navbar from growing and shrinking */
+  }
+
+  .main-container {
+    flex-grow: 1;
+    display: flex;
     justify-content: center;
   }
   

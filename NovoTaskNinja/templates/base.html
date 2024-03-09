@@ -15,6 +15,15 @@
     <!-- block extendHeader is so pages that extend from base.html can have custom links and scripts included in the header -->
     {% block extendHeader %}{% endblock %}
     <style>
+            @media (min-width: 992px) {
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            /* Add other styles as needed */
+        }
+        }
         @media (max-width: 992px) {
             .navbar-brand img {
                 transform: scale(1.5); /* just make the images bigger */
@@ -36,15 +45,23 @@
         </style>
 </head>
 <body>
-    <div class="body-cont">
-        {% include 'navbar.html' %}
-        
-        <!-- Insert Child template contents here -->
-        <div id="content" name="content" class="main">
-            {% block content %}
-            {% endblock %}
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Navbar -->
+            <div class="col-lg-3">
+                {% include 'navbar.html' %}
+            </div>
+    
+            <!-- Content -->
+            <div class="col-lg-9">
+                {% block content %}
+                <!-- Your content goes here -->
+                {% endblock %}
+            </div>
         </div>
-
     </div>
+
+    {% block scripts %}{% endblock %}
+
 </body>
 </html>
