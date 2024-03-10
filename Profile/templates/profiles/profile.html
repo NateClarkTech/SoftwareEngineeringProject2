@@ -44,9 +44,7 @@
             flex-direction: column;
 
         }
-        #content {
-            flex: 1 0 auto;
-        }
+
     }
 
 </style>
@@ -60,8 +58,8 @@
             <div class="profile-info bg-white border rounded p-3 shadow-sm">
                 <!-- Profile Image -->
                 {% if profile.profile_picture %}
-                    <div class="text-center mb-3">
-                        <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-image img-fluid mx-auto d-block">
+                    <div>
+                        <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-image">
                         <h2 class="mt-2">{{ profile.user.username }}
                         {% if profile.graduation_year %}
                             <span class="badge bg-primary">{{ profile.graduation_year }}</span>
@@ -117,6 +115,11 @@
                 <h3>Quick Info</h3>
                 <p><strong>Dorm Preferences:</strong> {{ profile.dorm_preferences }}</p>
                 <p><strong>Major:</strong> {{ profile.major }}</p>
+                {% if profile.looking_for_roommate %}
+                    <p><strong>Looking for Roommate:</strong> Yes</p>
+                {% else %}
+                    <p><strong>Looking for Roommate:</strong> No</p>
+                {% endif %}
                 {%if profile.current_student %}
                     <p><strong>Current Student:</strong> Yes</p>
                 {% else %}
