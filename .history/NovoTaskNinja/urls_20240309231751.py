@@ -9,6 +9,7 @@ urlpatterns = [
     # Backend-Heavy Pages
     path('dontkillmefood/', views.dontkillmefood, name='dontkillmefood'),
     
+
     # Frontend-Heavy Pages
     path('calendar', views.calendar, name='calendar'),
     path('ncfhours/', views.ncfhours, name='ncfhours'),

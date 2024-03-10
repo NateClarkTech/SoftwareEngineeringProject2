@@ -8,11 +8,11 @@ urlpatterns = [
 
     # Backend-Heavy Pages
     path('dontkillmefood/', views.dontkillmefood, name='dontkillmefood'),
-    
+    path('home/', views.home, name='home'),
+
     # Frontend-Heavy Pages
-    path('calendar', views.calendar, name='calendar'),
+    path('', views.calendar, name='calendar'),
     path('ncfhours/', views.ncfhours, name='ncfhours'),
-    path('', views.home, name='home'),
 
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
