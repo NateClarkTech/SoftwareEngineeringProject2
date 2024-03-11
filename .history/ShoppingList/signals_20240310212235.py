@@ -23,7 +23,7 @@ def create_user_shopping_list(sender, instance, created, **kwargs):
         ShoppingListItem.objects.create(user=instance, name="Key chain that you would bet $148 on (price of a lost key)", category=roomEssentials, url="https://www.amazon.com/s?k=key+chain")
         ShoppingListItem.objects.create(user=instance, name="Clothes hangers", category=roomEssentials, url="https://www.amazon.com/s?k=clothes+hangers")
         ShoppingListItem.objects.create(user=instance, name="Laundry basket", category=roomEssentials, url="https://www.amazon.com/s?k=laundry+basket")
-        ShoppingListItem.objects.create(user=instance, name="Bath Towel", category=hygiene, url="https://www.amazon.com/s?k=bath+towels")
+        ShoppingListItem.objects.create(user=instance, name="Bath Towel", category=hygiene, url="https://www.amazon.com/s?kbath+towel")
         ShoppingListItem.objects.create(user=instance, name="Soap", category=hygiene, url="https://www.amazon.com/s?k=soap")
         ShoppingListItem.objects.create(user=instance, name="Shampoo and Conditioner", category=hygiene, url="https://www.amazon.com/s?k=shampoo+and+conditioner")
         ShoppingListItem.objects.create(user=instance, name="Deodorant", category=hygiene, url="https://www.amazon.com/s?k=deodorant")
