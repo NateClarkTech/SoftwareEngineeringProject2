@@ -8,24 +8,22 @@
         border: 1px solid #ccc;
         padding: 10px;
         margin-bottom: 10px;
-        background-color: white; /* Added this line */
     }
 </style>
 {% endblock %}
 
 {% block content %}    
-<div class="align-items-center">
+<div>
     {% if user.is_authenticated %}
-    <h1>Shopping List</h1>
-    <p>A helpful list of things you may need to buy for your college journey!</p>
+    <h2>Shopping List</h2>
     {% for category in itemCategories %}
         <h3>{{ category }}</h3>
         {% for item in shoppingItems %}
             {% if item.category == category %}
-                <div class="item-box d-flex">
-                    <label for="item-{{ item.id }}" class="flex-grow-1 p-2">{{ item.name }}</label>
-                    <a href="{{ item.url }}" target="_blank" class="p-2">External Link</a>
-                    <input type="checkbox" id="item-{{ item.id }}" class="p-2" {% if item.checked %}checked{% endif %}>
+                <div class="item-box d-flex justify-content-between text-center">
+                    <label for="item-{{ item.id }}">{{ item.name }}</label>
+                    <a href="{{ item.url }}" target="_blank">External Link</a>
+                    <input type="checkbox" id="item-{{ item.id }}" {% if item.checked %}checked{% endif %}>
                 </div>
             {% endif %}
         {% endfor %}

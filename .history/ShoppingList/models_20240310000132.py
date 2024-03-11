@@ -5,7 +5,7 @@ class ShoppingListCategory(models.Model):
     name = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.name
+        return self.user.username + " - " + self.name
 
 class ShoppingListItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE) 

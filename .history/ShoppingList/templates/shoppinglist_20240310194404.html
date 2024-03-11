@@ -22,7 +22,7 @@
         <h3>{{ category }}</h3>
         {% for item in shoppingItems %}
             {% if item.category == category %}
-                <div class="item-box d-flex">
+                <div class="item-box d-flex justify-content-between text-center">
                     <label for="item-{{ item.id }}" class="flex-grow-1 p-2">{{ item.name }}</label>
                     <a href="{{ item.url }}" target="_blank" class="p-2">External Link</a>
                     <input type="checkbox" id="item-{{ item.id }}" class="p-2" {% if item.checked %}checked{% endif %}>
