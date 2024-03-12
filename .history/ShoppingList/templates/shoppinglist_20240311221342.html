@@ -1,16 +1,15 @@
 {% extends 'base.html' %}
-
-{% load static %}
-
+    
 {% block title %}Shopping List{% endblock %}
 
 {% block extendHeader %}
 <style>
+
     .item-box {
         border: 1px solid #ccc;
         padding: 10px;
         margin-bottom: 10px;
-        background-color: white;
+        background-color: white; /* Added this line */
     }
 </style>
 {% endblock %}
@@ -29,7 +28,7 @@
                 {% if item.category == category %}
                     <div class="item-box d-flex">
                         <label for="item-{{ item.id }}" class="flex-grow-1 p-2">{{ item.name }}</label>
-                            <a href="{{ item.url }}" target="_blank" class="p-2">Buy Now</a>
+                            <a href="{{ item.url }}" target="_blank" class="p-2">External Link</a>
                         <input type="checkbox" id="item-{{ item.id }}" class="p-2" {% if item.checked %}checked{% endif %}>
                     </div>
                 {% endif %}
@@ -40,8 +39,4 @@
     <p>You are not logged in</p>
     {% endif %}
 </div>
-{% endblock %}
-
-{% block scripts %}
-    <script src={% static 'js/shoppinglist.js' %}></script>
 {% endblock %}

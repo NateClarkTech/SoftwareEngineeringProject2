@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
-
-{% load static %}
-
+    
 {% block title %}Shopping List{% endblock %}
 
 {% block extendHeader %}
@@ -40,8 +38,4 @@
     <p>You are not logged in</p>
     {% endif %}
 </div>
-{% endblock %}
-
-{% block scripts %}
-    <script src={% static 'js/shoppinglist.js' %}></script>
 {% endblock %}
