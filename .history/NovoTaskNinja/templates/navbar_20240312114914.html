@@ -29,6 +29,7 @@
             text-align: left;
             height: 100vh;
             width: 250px;
+            padding-right: 5px;
             background-color: var(--navbar-bg-color);
             color: var(--navbar-text-color);
             padding: 0; /* Removed padding to allow nav-section to extend fully */
@@ -153,7 +154,7 @@
             <div class="nav-item">
                 <a href="https://novoconnect.ncf.edu/organizations" class="nav-link"><span class="emoji">🎓</span> <span class="text">Organizations</span></a>
             </div>
-            <form method="get" action="{% url 'Profile:search_profiles' %}" class="d-flex nav-item">
+            <form method="get" action="{% url 'Profile:search_profiles' %}" class="d-flex">
                 <input class="form-control me-2" type="search" name="query" placeholder="Search Profiles" aria-label="Search">
                 <button class="btn btn-outline-light" type="submit">Search</button>
             </form>

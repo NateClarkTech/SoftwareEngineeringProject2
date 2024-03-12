@@ -153,10 +153,10 @@
             <div class="nav-item">
                 <a href="https://novoconnect.ncf.edu/organizations" class="nav-link"><span class="emoji">🎓</span> <span class="text">Organizations</span></a>
             </div>
-            <form method="get" action="{% url 'Profile:search_profiles' %}" class="d-flex nav-item">
+            <form method="get" action="{% url 'Profile:search_profiles' %}" class="d-flex">
                 <input class="form-control me-2" type="search" name="query" placeholder="Search Profiles" aria-label="Search">
                 <button class="btn btn-outline-light" type="submit">Search</button>
-            </form>
+            </form class="navitem">
             <!-- More desktop sidebar links as nav-items -->
             
             <!-- Account Links for Desktop -->
