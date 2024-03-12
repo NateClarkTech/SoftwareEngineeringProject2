@@ -13,27 +13,18 @@
     <!-- block extendHeader is so pages that extend from base.html can have custom links and scripts included in the header -->
     {% block extendHeader %}{% endblock %}
     <style>
-        @media (max-width: 992px) {
-            .navbar-brand img {
-                transform: scale(1.5); /* just make the images bigger */
-            }
-        
-            .navbar-brand img:hover {
-                transform: scale(2); /* Larger on hover */
-            }
-        }
         :root {
-            --navbar-bg-color: #343a40; /* Dark gray, you can change it to your school's primary color */
+            --navbar-bg-color: #343a40;
             --navbar-text-color: #ffffff; /* White text color */
-            --navbar-hover-bg-color: #495057; /* Slightly lighter gray for hover state */
-            --account-section-bg-color: #23272b; /* Even darker shade for account section */
-            --link-color: #007bff; /* Default link color, change as needed */
+            --navbar-hover-bg-color: #495057; 
+            --account-section-bg-color: #23272b; 
+            --link-color: #007bff; 
         }
         @media (min-width: 992px)
         {
 
         .main {
-            padding-left: 275px !important; /* 56px is the height of the navbar */
+            padding-left: 275px !important; 
         }
     }
         
