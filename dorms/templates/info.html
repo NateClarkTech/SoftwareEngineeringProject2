@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "baseAlt.html" %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +13,7 @@ Dorm Info
 <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 <link href="{% static 'css/dorminfo.css' %}" rel="stylesheet">
 {% endblock %}
+
 </head>
 
 
@@ -20,7 +21,7 @@ Dorm Info
 <div class="container">
   <h1 class="text-center display-1 mainTitle">Dorm Info</h1>
   <div class="row justify-content-center">
-    <div class="col-lg-8 mb-5 mt-5">
+    <div class="col-lg-8 mb-3 mt-3">
       <div class="card" style="border-radius: 1.5rem; overflow: hidden;">
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-indicators">
@@ -30,13 +31,13 @@ Dorm Info
           </div>
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img src="{% static 'images/dortOutside.jpg' %}" class="d-block w-100" alt="Image 1">
+              <img src="{% static 'images/p1.jpg' %}" class="d-block w-100 img-fluid" alt="Image 1">
             </div>
             <div class="carousel-item">
-              <img src="{% static 'images/dogPark.jpg' %}" class="d-block w-100" alt="Image 2">
+              <img src="{% static 'images/p2.jpg' %}" class="d-block w-100 img-fluid" alt="Image 2">
             </div>
             <div class="carousel-item">
-              <img src="{% static 'images/dortInsideKitchen.jpg' %}" class="d-block w-100" alt="Image 3">
+              <img src="{% static 'images/dortOutside.jpg' %}" class="d-block w-100 img-fluid" alt="Image 3">
             </div>
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -63,7 +64,7 @@ Dorm Info
       </div>
     </div>
 
-    <div class="col-lg-8 mb-5 mt-5">
+    <div class="col-lg-8 mb-3 mt-3">
       <div class="card" style="border-radius: 1.5rem; overflow: hidden;">
         <div id="carouselExampleIndicators1" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-indicators">
@@ -73,13 +74,13 @@ Dorm Info
           </div>
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img src="{% static 'images/letterInside.jpg' %}" class="d-block w-100" alt="Image 1">
+              <img src="{% static 'images/zInside.jpg' %}" class="d-block w-100 img-fluid" alt="Image 1">
             </div>
             <div class="carousel-item">
-              <img src="{% static 'images/laundry.jpg' %}" class="d-block w-100" alt="Image 2">
+              <img src="{% static 'images/p3.jpg' %}" class="d-block w-100 img-fluid" alt="Image 2">
             </div>
             <div class="carousel-item">
-              <img src="{% static 'images/commonRoom.jpg' %}" class="d-block w-100" alt="Image 3">
+              <img src="{% static 'images/p4.jpg' %}" class="d-block w-100 img-fluid" alt="Image 3">
             </div>
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide="prev">
@@ -106,7 +107,7 @@ Dorm Info
       </div>
     </div>
 
-    <div class="col-lg-8 mb-5 mt-5">
+    <div class="col-lg-8 mb-5 mt-3">
       <div class="card" style="border-radius: 1.5rem; overflow: hidden;">
         <div id="carouselExampleIndicators2" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-indicators">
@@ -135,16 +136,16 @@ Dorm Info
           </button>
         </div>
         <div class="card-body">
-          <h2 class="card-title">Dort And Gold</h5>
-          <p class="card-text">One of the nicest living options on campus, dort and gold is an apartment style dorm traditonally set aside for upperclassmen. A spacious living room and double bathroom make it the largest suites available on campus</p>
+          <h2 class="card-title">Z Dorm</h5>
+          <p class="card-text">Z dorm is a very sought after dorm on campus, with large swaths of indoor communal spaces as well as spacious outdoor areas</p>
           <h4 class="card-title">Amenities</h5>
-          <p class="card-text">- 4 Bedrooms <br>- 2 Bathrooms <br>- Kitchenette (Full Fridge, Microwave, Oven) <br>- dog park</p>
+          <p class="card-text">- 4 Bedrooms <br>- 1 Bathrooms <br>- Amphitheater <br>- Three Story Balcony (Zalcony) <br>- High density of lizards</p>
           <h4 class="card-title">Cost</h5>
-          <p class="card-text">$10,000 per semester</p>
+          <p class="card-text">$8,450 per semester</p>
           <h4 class="card-title">Pros</h4>
-          <p class="card-text">- Commual balcony <br>- Next to gym <br>- Dorm Parking Lot <br>- Lots of really nice apposums (Only marsupial native to US)</p>
+          <p class="card-text">- HUGE 3 Story balcony beloved by students <br>- Right across from dining hall <br>- Amphitheater for live music <br>- Ocasional Racoon</p>
           <h4 class="card-title">Cons</h4>
-          <p class="card-text">- Isolated from rest of dorms/social spaces <br>- Parking Fills up quick <br>- No indoor common spaces</p>
+          <p class="card-text">- Very little snakes <br>- Some rooms are better then others <br>- Elevator breaks 24/7</p>
         </div>
       </div>
     </div>

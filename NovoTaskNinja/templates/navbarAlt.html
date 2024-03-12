@@ -150,7 +150,17 @@
             <div class="nav-item">
                 <a href="https://novoconnect.ncf.edu/organizations" class="nav-link"><span class="emoji">🎓</span> <span class="text">Organizations</span></a>
             </div>
-            <form method="get" action="{% url 'Profile:search_profiles' %}" class="d-flex">
+            <div class="nav-item">
+                <a href="{% url 'dorms:dorm_info_view' %}" class="nav-link"><span class="emoji">🏠</span> <span class="text">Dorms</span></a>
+            </div>
+            <div class="nav-item">
+                <a href="{% url 'leaderboard:leaderboard' %}" class="nav-link"><span class="emoji">🏆</span> <span class="text">Leaderboard</span></a>
+            </div>
+            <div class="nav-item">
+                <a href="{% url 'leaderboard:checklist' %}" class="nav-link"><span class="emoji">✅</span> <span class="text">New Novo Checklist</span></a>
+            </div>
+
+            <form method="get" action="{% url 'Profile:search_profiles' %}" class="d-flex" style="padding: 10px;">
                 <input class="form-control me-2" type="search" name="query" placeholder="Search Profiles" aria-label="Search">
                 <button class="btn btn-outline-light" type="submit">Search</button>
             </form>
@@ -197,9 +207,15 @@
                     </div>
                     <div class="modal-body">
                         <!-- Repeat the navigation links here for mobile -->
+
                         <a href="{% url 'calendar' %}" class="d-block">🗓️ Calendar</a>
                         <a href="{% url 'ncfhours' %}" class="d-block">📚 NCF Hours</a>
                         <a href="{% url 'dontkillmefood' %}" class="d-block">🍔 Don't Kill Me Food</a>
+                        <a href="https://novoconnect.ncf.edu/organizations" class="d-block">🎓 Organizations</a>
+                        <a href="{% url 'dorms:dorm_info_view' %}" class="d-block">🏠 Dorms</a>
+                        <a href="{% url 'leaderboard:leaderboard' %}" class="d-block">🏆 Leaderboard</a>
+                        <a href="{% url 'leaderboard:checklist' %}" class="d-block">✅ New Novo Checklist</a>
+
                         <form method="get" action="{% url 'Profile:search_profiles' %}" class="d-flex">
                             <input class="form-control me-2" type="search" name="query" placeholder="Search Profiles" aria-label="Search">
                             <button class="btn btn-outline-success" type="submit">Search</button>

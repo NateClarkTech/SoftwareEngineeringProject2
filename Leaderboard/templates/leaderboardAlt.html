@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "baseAlt.html" %}
 {% load static %}
 
 {% block title %}
@@ -6,29 +6,18 @@ Leaderboard
 {% endblock %}
 
 {% block css %}
-
+<link rel="stylesheet" type="text/css" href="{% static 'css/leaderboard.css' %}">
 {% endblock %}
 
 {% block content %}
-<style>
-    @font-face {
-    font-family: 'LemonBoldItalic';
-    src: url('{% static "fonts/LemondropBoldItalic-lMl0.ttf" %}') format('truetype');
-}
 
-    h1 {
-        font-family: LemonBoldItalic;
-        color:black;
-        font-size: 5rem;
-    }
-</style>
 
 
 <div class="container mt-5">
   <h1 class="text-center ">LEADERBOARD</h1>
   <div class="table-responsive">
     <table class="table">
-      <thead class="table-dark">
+      <thead class="table-light">
         <tr>
           <th scope="col">Rank🏆</th>
           <th scope="col">Name😺</th>
@@ -37,7 +26,7 @@ Leaderboard
       </thead>
       <tbody>
         {% for player in players %}
-        <tr class="{% cycle 'table-primary' 'table-secondary' 'table-success' 'table-danger' 'table-warning' 'table-info' 'table-light' 'table-dark' %}">
+        <tr class="{% cycle 'table-primary' 'table-secondary' 'table-success' 'table-danger' 'table-warning' 'table-info' 'table-light' %}">
           <th scope="row">{{ player.rank }}</th>
           <td>{{ player.name }}</td>
           <td>{{ player.score }}</td>

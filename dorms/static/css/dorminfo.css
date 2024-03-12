@@ -15,7 +15,8 @@ body {
 }
 
 .mainTitle {
-    color: #7C2855;
+    color: white;
+    font-family: serif;
 }
 
 .card-header {
@@ -35,3 +36,27 @@ body {
 .carousel-item img {
 object-fit: cover;
 }
+
+@media (min-width: 992px) {
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+  
+    .card {
+      margin-left: 256px;
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
+  .carousel-item {
+    height: 300px; /* Adjust as needed */
+  }
+  
+  .carousel-item img {
+    height: 100%;
+    object-fit: cover;
+  }
