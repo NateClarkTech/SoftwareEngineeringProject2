@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+    
+{% block title %}Shopping List{% endblock %}
+
+{% block extendHeader %}
+<style>
+    .item-box {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: white; /* Added this line */
+    }
+</style>
+{% endblock %}
+
+{% block content %}    
+<div class="align-items-center">
+    {% if user.is_authenticated %}
+    <h1>Shopping List</h1>
+    <p>A helpful list of things you may need to buy for your college journey!</p>
+    {% for category in itemCategories %}
+        <h3>{{ category }}</h3>
+        {% for item in shoppingItems %}
+            {% if item.category == category %}
+                <div class="item-box d-flex justify-content-between text-center">
+                    <label for="item-{{ item.id }}" class="flex-grow-1 p-2">{{ item.name }}</label>
+                    <a href="{{ item.url }}" target="_blank" class="p-2">External Link</a>
+                    <input type="checkbox" id="item-{{ item.id }}" class="p-2" {% if item.checked %}checked{% endif %}>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+    {% else %}
+    <p>You are not logged in</p>
+    {% endif %}
+</div>
+{% endblock %}

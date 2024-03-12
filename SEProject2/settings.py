@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'Leaderboard',
     'Profile',
     'dorms',
+    'ShoppingList',
 ]
 
 MIDDLEWARE = [
