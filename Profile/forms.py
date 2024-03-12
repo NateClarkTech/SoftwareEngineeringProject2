@@ -15,12 +15,13 @@ class ProfileUpdateForm(forms.ModelForm):
         model = Profile
         fields = [
             'profile_picture', 'personal_info', 'dorm_preferences', 'major',
-            'graduation_year', 'current_student', 'hometown', 'likes', 'homestate', 'highschool', 'looking_for_roommate',
+            'graduation_year', 'new_student', 'current_student', 'hometown', 'likes', 'homestate', 'highschool', 'looking_for_roommate',
             'email', 'phone_number', 'snapchat', 'instagram'
         ]
         widgets = {
             'personal_info': forms.Textarea(attrs={'rows': 4}),
             'looking_for_roommate': forms.CheckboxInput(),
+            'new_student': forms.CheckboxInput(),
         }
     # Add Some validation for the graduation year,  https://docs.djangoproject.com/en/5.0/ref/forms/validation/
     def clean_graduation_year(self):

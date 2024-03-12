@@ -27,3 +27,5 @@ class Profile(models.Model):
     snapchat = models.CharField(max_length=100, blank=True)
     instagram = models.CharField(max_length=100, blank=True)
     
+    #New or returning student
+    new_student = models.BooleanField(default=False)
