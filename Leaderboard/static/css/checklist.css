@@ -1,0 +1,35 @@
+#content{
+    margin-left: 256px;
+
+}
+body    {
+    background-color: #7BAFD4;
+}
+.headTitle{
+    color: #fff;
+    font-family: serif;
+}
+.card-header {
+font-weight: bold;
+color: #7C2855;
+}
+.card-body {
+color: #7C2855;
+}
+#content {
+margin-left: 0; /* No left margin on small screens */
+}
+
+@media (min-width: 992px) { /* This is the breakpoint for large screens in Bootstrap */
+.navbar {
+position: fixed; /* Fix position to the viewport */
+top: 0; /* Align to the top */
+left: 0; /* Align to the left */
+height: 100vh; /* Full viewport height */
+overflow: auto; /* Enable scrolling if content overflows */
+}
+
+#content {
+margin-left: 256px; /* Left margin on larger screens */
+}
+}

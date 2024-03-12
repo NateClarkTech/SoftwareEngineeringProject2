@@ -12,28 +12,40 @@
     
     <!-- block extendHeader is so pages that extend from base.html can have custom links and scripts included in the header -->
     {% block extendHeader %}{% endblock %}
+    {% block css %}{%endblock%}
     <style>
-        :root {
-            --navbar-bg-color: #343a40;
-            --navbar-text-color: #ffffff; /* White text color */
-            --navbar-hover-bg-color: #495057; 
-            --account-section-bg-color: #23272b; 
-            --link-color: #007bff; 
+        .navbar{
+     
+            width: 100%;
+            z-index: 1000;
         }
-        @media (min-width: 992px)
-        {
-
-        .main {
-            padding-left: 275px !important; 
-        }
-    }
+        @media (max-width: 992px) {
+            .navbar-brand img {
+                transform: scale(1.5); /* just make the images bigger */
+            }
         
+            .navbar-brand img:hover {
+                transform: scale(2); /* Larger on hover */
+            }
+        }
+        :root {
+            --navbar-bg-color: #343a40; /* Dark gray, you can change it to your school's primary color */
+            --navbar-text-color: #ffffff; /* White text color */
+            --navbar-hover-bg-color: #495057; /* Slightly lighter gray for hover state */
+            --account-section-bg-color: #23272b; /* Even darker shade for account section */
+            --link-color: #007bff; /* Default link color, change as needed */
+        }
+        @media (min-width: 768px) {
+            #content{
+              margin-left: 256px;
+            }
+          }
         
         </style>
 </head>
 <body>
     <div class="body-cont">
-        {% include 'navbar.html' %}
+        {% include 'navbarAlt.html' %}
         
         <!-- Insert Child template contents here -->
         <div id="content" name="content" class="main">
@@ -43,4 +55,5 @@
 
     </div>
 </body>
+{% block scripts %}{% endblock %}
 </html>

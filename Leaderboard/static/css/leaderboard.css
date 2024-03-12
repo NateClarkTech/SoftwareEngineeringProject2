@@ -1,0 +1,33 @@
+@font-face {
+  font-family: 'LemonBoldItalic';
+  src: "fonts/LemondropBoldItalic-lMl0.ttf" format('truetype');
+}
+
+h1 {
+  font-family: serif;
+  color: white;
+  font-size: 2rem; /* This will be the font size for small screens */
+}
+td {
+color:#7C2855;
+}
+
+@media (min-width: 768px) { /* This is the breakpoint for larger screens, adjust as needed */
+  h1 {
+      font-size: 5rem; /* This will be the font size for larger screens */
+  }
+}
+
+@media (min-width: 992px) {
+  .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      overflow: auto;
+  }
+
+  #content {
+      margin-left: 256px;
+  }
+}

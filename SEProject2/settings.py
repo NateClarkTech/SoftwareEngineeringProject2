@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'NovoTaskNinja',
     'Leaderboard',
     'Profile',
+    'dorms',
 ]
 
 MIDDLEWARE = [
