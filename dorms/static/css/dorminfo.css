@@ -1,6 +1,6 @@
 .card {
-    border: solid;
-    border-color: #003087;
+
+    border-color: white;
 }
 
 .card-text {
@@ -8,5 +8,30 @@
 }
 
 .card-title {
-    color: #003087;
+    color: #7C2855;
+}
+body {
+    background-color: #7BAFD4;
+}
+
+.mainTitle {
+    color: #7C2855;
+}
+
+.card-header {
+    border: none;
+}
+
+.carousel-item {
+    height: 400px; /* Adjust this value as needed */
+  }
+  
+@media (max-width: 576px) { /* Adjust this value as needed */
+.carousel-item {
+    height: 200px; /* Adjust this value as needed */
+    }
+}
+
+.carousel-item img {
+object-fit: cover;
 }

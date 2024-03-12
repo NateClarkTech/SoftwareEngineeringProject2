@@ -1,11 +1,14 @@
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Checklist  # Assuming your model's name is Checklist
 from django.db.models import F
+from django.contrib.auth.decorators import login_required
 
 
 # A simple view that returns checklist.html
+@login_required(login_url='/profile/login/')
 def checklist(request):
     try:
         user_checklist = Checklist.objects.get(user=request.user)
@@ -73,7 +76,8 @@ def reset_tasks(request):
 
         # Return a success response
         return JsonResponse({'status': 'success'})
-    
+
+@login_required(login_url='/profile/login/')    
 def leaderboard_view(request):
     # Query the database for all checklists, ordered by score in descending order
     checklists = Checklist.objects.order_by('-score')
@@ -84,4 +88,4 @@ def leaderboard_view(request):
         for i, checklist in enumerate(checklists)
     ]
 
-    return render(request, 'leaderboard.html', {'players': players})
+    return render(request, 'leaderboardAlt.html', {'players': players})

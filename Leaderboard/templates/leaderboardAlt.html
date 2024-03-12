@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Leaderboard
+{% endblock %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block content %}
+<style>
+    @font-face {
+    font-family: 'LemonBoldItalic';
+    src: url('{% static "fonts/LemondropBoldItalic-lMl0.ttf" %}') format('truetype');
+}
+
+    h1 {
+        font-family: LemonBoldItalic;
+        color:black;
+        font-size: 5rem;
+    }
+</style>
+
+
+<div class="container mt-5">
+  <h1 class="text-center ">LEADERBOARD</h1>
+  <div class="table-responsive">
+    <table class="table">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">Rank🏆</th>
+          <th scope="col">Name😺</th>
+          <th scope="col">Score🥳</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for player in players %}
+        <tr class="{% cycle 'table-primary' 'table-secondary' 'table-success' 'table-danger' 'table-warning' 'table-info' 'table-light' 'table-dark' %}">
+          <th scope="row">{{ player.rank }}</th>
+          <td>{{ player.name }}</td>
+          <td>{{ player.score }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

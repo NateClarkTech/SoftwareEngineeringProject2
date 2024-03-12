@@ -12,12 +12,26 @@ Pre-Arrival Checklist
         margin-left: 256px;
     
     }
+    body    {
+        background-color: #7BAFD4;
+    }
+    .headTitle{
+        color: #fff;
+    }
+    .card-header {
+    font-weight: bold;
+    color: #7C2855;
+    }
+    .card-body {
+    color: #7C2855;
+    }
+
 </style>
 {% endblock %}
 
 <body>
     {% block content %}
-    <h1 class="text-center display-1">Pre-Arrival Checklist</h1>
+    <h1 class="text-center display-1 headTitle">Pre-Arrival Checklist</h1>
     <div class="container-sm">
         <div class="row">
             <!-- Task #1 -->
@@ -64,7 +78,7 @@ Pre-Arrival Checklist
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" value="" id="checkbox3" {% if task3 %}checked{% endif %}>
                             <label class="form-check-label" for="checkbox3">
-                                Visit the <a href="https://youtube.com">Hamilton Dining Center Website</a> and write down some of your favorite items
+                                Visit the <a href="/dorms/info/">Hamilton Dining Center Website</a> and write down some of your favorite items
                             </label>
                         </div>
                     </div>

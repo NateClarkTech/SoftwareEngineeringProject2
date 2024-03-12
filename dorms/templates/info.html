@@ -14,11 +14,11 @@ Dorm Info
 <link href="{% static 'css/dorminfo.css' %}" rel="stylesheet">
 {% endblock %}
 </head>
-<body>
+
 
 {% block content %}
 <div class="container">
-  <h1 class="text-center display-1">Dorm Info</h1>
+  <h1 class="text-center display-1 mainTitle">Dorm Info</h1>
   <div class="row justify-content-center">
     <div class="col-lg-8 mb-5 mt-5">
       <div class="card" style="border-radius: 1.5rem; overflow: hidden;">
@@ -33,10 +33,10 @@ Dorm Info
               <img src="{% static 'images/dortOutside.jpg' %}" class="d-block w-100" alt="Image 1">
             </div>
             <div class="carousel-item">
-              <img src="{% static 'images/dortOutside.jpg' %}" class="d-block w-100" alt="Image 2">
+              <img src="{% static 'images/dogPark.jpg' %}" class="d-block w-100" alt="Image 2">
             </div>
             <div class="carousel-item">
-              <img src="{% static 'images/dortOutside.jpg' %}" class="d-block w-100" alt="Image 3">
+              <img src="{% static 'images/dortInsideKitchen.jpg' %}" class="d-block w-100" alt="Image 3">
             </div>
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -65,28 +65,28 @@ Dorm Info
 
     <div class="col-lg-8 mb-5 mt-5">
       <div class="card" style="border-radius: 1.5rem; overflow: hidden;">
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div id="carouselExampleIndicators1" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide-to="2" aria-label="Slide 3"></button>
           </div>
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img src="{% static 'images/dortOutside.jpg' %}" class="d-block w-100" alt="Image 1">
+              <img src="{% static 'images/letterInside.jpg' %}" class="d-block w-100" alt="Image 1">
             </div>
             <div class="carousel-item">
-              <img src="{% static 'images/dortOutside.jpg' %}" class="d-block w-100" alt="Image 2">
+              <img src="{% static 'images/laundry.jpg' %}" class="d-block w-100" alt="Image 2">
             </div>
             <div class="carousel-item">
-              <img src="{% static 'images/dortOutside.jpg' %}" class="d-block w-100" alt="Image 3">
+              <img src="{% static 'images/commonRoom.jpg' %}" class="d-block w-100" alt="Image 3">
             </div>
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
           </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
           </button>
@@ -108,28 +108,28 @@ Dorm Info
 
     <div class="col-lg-8 mb-5 mt-5">
       <div class="card" style="border-radius: 1.5rem; overflow: hidden;">
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div id="carouselExampleIndicators2" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="2" aria-label="Slide 3"></button>
           </div>
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img src="{% static 'images/dortOutside.jpg' %}" class="d-block w-100" alt="Image 1">
+              <img src="{% static 'images/zOutside.jpg' %}" class="d-block w-100 h-100 img-fluid" alt="Image 1">
             </div>
             <div class="carousel-item">
-              <img src="{% static 'images/dortOutside.jpg' %}" class="d-block w-100" alt="Image 2">
+              <img src="{% static 'images/peiInside.jpg' %}" class="d-block w-100 h-100 img-fluid" alt="Image 2">
             </div>
             <div class="carousel-item">
-              <img src="{% static 'images/dortOutside.jpg' %}" class="d-block w-100" alt="Image 3">
+              <img src="{% static 'images/zOutdoors.jpg' %}" class="d-block w-100 h-100 img-fluid" alt="Image 3">
             </div>
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
           </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
           </button>
