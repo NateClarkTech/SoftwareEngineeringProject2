@@ -2,17 +2,14 @@ from django.shortcuts import render
 from .models import ShoppingListItem, ShoppingListCategory
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
 
 @login_required(login_url='/profile/login/')
 def shoppinglist(request):
-    #Make sure the user has a shopping list
-    shoppingItems = ShoppingListItem.objects.filter(user=request.user)
-    if shoppingItems.count() == 0:
+    try:
+        shoppingItems = ShoppingListItem.objects.filter(user=request.user)
+    except ShoppingListItem.DoesNotExist:
         create_user_shopping_list(request.user)
         shoppingItems = ShoppingListItem.objects.filter(user=request.user)
-        
-    #get the shopping list items and categories
     shoppingItems = ShoppingListItem.objects.filter(user=request.user)
     itemCategories = ShoppingListCategory.objects.all
 
@@ -21,30 +18,14 @@ def shoppinglist(request):
 @csrf_exempt
 def update_shoppinglist(request):
     if request.method == 'POST':
-        #Make sure the user has a shopping list
-        shoppingItems = ShoppingListItem.objects.filter(user=request.user)
-        if shoppingItems.count() == 0:
-            create_user_shopping_list(request.user)
-            shoppingItems = ShoppingListItem.objects.filter(user=request.user)
+        item_id = request.POST.get('item_id')
+        item = ShoppingListItem.objects.get(pk=item_id)
+        item.completed = not item.completed
+        item.save()
 
-        for i in range(shoppingItems.count()):
-            item = shoppingItems[i]
-            # Rest of the code inside the loop
-            #if the item is checked, delete it from the shopping list
-            
-            if request.POST.get('item-' + str(i)) == 'true' & item.checked == False:
-                item.checked = True
-                item.save()
-            elif request.POST.get('item-' + str(i)) == 'false' & item.checked == True:
-                item.checked = False
-                item.save()     
-                
-    return JsonResponse({'status': 'success'})
+    return JsonResponse({'status': 'ok'})
 
 
-
-
-#If for some reason the user does not have a shopping list (i.e. the user was created before the shopping list feature was added), create a shopping list for the user
 def create_user_shopping_list(current_user):
     roomEssentials = ShoppingListCategory.objects.get(name="Room Essentials")
     hygiene = ShoppingListCategory.objects.get(name="Hygiene")

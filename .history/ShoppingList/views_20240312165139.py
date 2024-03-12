@@ -35,7 +35,7 @@ def update_shoppinglist(request):
             if request.POST.get('item-' + str(i)) == 'true' & item.checked == False:
                 item.checked = True
                 item.save()
-            elif request.POST.get('item-' + str(i)) == 'false' & item.checked == True:
+            else if request.POST.get('item-' + str(i)) == 'false' & item.checked == True:
                 item.checked = False
                 item.save()     
                 

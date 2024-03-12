@@ -4,17 +4,18 @@ function sendUpdate() {
     let checkboxes = []
 
     for (let i = 1; i <= 51; i++) {
-        checkboxes.push(document.getElementById('item-' + i).checked);
+        let checkbox = document.getElementById('item-' + i);
+        checkboxes.push(i);
     }
 
     let params = new URLSearchParams();
     for (let i = 0; i < checkboxes.length; i++) {
-        params.append('item-' + i, checkboxes[i]);
+        params.append('item-' + i, document.getElementById('item-' + i).checked);
     }
 
-    
+    console.log(params.toString()
 
-    fetch('/shoppinglist/update_shoppinglist', {  // Update this line
+    fetch('/shoppinglist/update_shoppinglist/', {  // Update this line
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -55,17 +56,3 @@ window.onload = function() {
         }*/
     }
 };
-
-function printDiv(divId) {
-    var content = document.getElementById(divId).innerHTML;
-    var printWindow = window.open('', '', 'height=400,width=800');
-    printWindow.document.write('<html><head><title>Print</title></head><body>');
-    printWindow.document.write(content);
-    printWindow.document.write('</body></html>');
-    printWindow.document.close();
-
-    setTimeout(function() {
-        printWindow.print();
-        printWindow.close();
-    }, 1000); // Delay the print action by 1 second (1000 milliseconds)
-}

@@ -6,5 +6,5 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.shoppinglist, name='shoppinglist'),
-    path('update_shoppinglist', views.update_shoppinglist, name='update_shoppinglist'),
+    path('/update_shoppinglist', views.update_shoppinglist, name='update_shoppinglist'),
 ]

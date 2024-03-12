@@ -17,18 +17,16 @@
 
     .checked {
         text-decoration: line-through;
-        border-color: #58c458;
+        border-color: #81ef81;
         border-radius: 5px;
         border-width: 3px;
-        background-color: #8bfc8b;
     }
 
     .not-checked {
         text-decoration: none;
-        border-color: #ce5b5b;
+        border-color: #ff9999;
         border-radius: 5px;
         border-width: 3px;
-        background-color: #fd9f9f;
     }
 </style>
 {% endblock %}
@@ -40,21 +38,19 @@
         <h1>Shopping List</h1>
         <a href="https://www.amazon.com/hz/wishlist/ls/1MYC1SQ5AHTOC?ref_=wl_share" target="_blank">Premade wishlist of what you might need (remember to shop around for your favoirte brands and to stay in budget)</a>
         <p class="pt-3">A helpful list of things you may need to buy for your college journey!</p>
-        <button type="button" class="btn btn-primary btn-small mb-2" onclick="printDiv('shoppingListContents')">Print List</button>
-        <div id="shoppingListContents">
-            {% for category in itemCategories %}
-                <h3>{{ category }}</h3>
-                {% for item in shoppingItems %}
-                    {% if item.category == category %}
-                        <div class="item-box d-flex {% if item.checked %}checked{%else%}not-checked{% endif %}">
-                            <label for="item-{{ forloop.counter }}" class="flex-grow-1 p-2">{{ item.name }}</label>
-                            <a href="{{ item.url }}" target="_blank" class="p-2">Buy Now</a>
-                            <input type="checkbox" id="item-{{ forloop.counter }}" class="p-2" {% if item.checked %}checked{% endif %}>
-                        </div>
-                    {% endif %}
-                {% endfor %}
+        <button type="button" class="btn btn-primary py-2">Print List</button>
+        {% for category in itemCategories %}
+            <h3>{{ category }}</h3>
+            {% for item in shoppingItems %}
+                {% if item.category == category %}
+                    <div class="item-box d-flex {% if item.checked %}checked{%else%}not-checked{% endif %}">
+                        <label for="item-{{ forloop.counter }}" class="flex-grow-1 p-2">{{ item.name }}</label>
+                        <a href="{{ item.url }}" target="_blank" class="p-2">Buy Now</a>
+                        <input type="checkbox" id="item-{{ forloop.counter }}" class="p-2" {% if item.checked %}checked{% endif %}>
+                    </div>
+                {% endif %}
             {% endfor %}
-        </div>
+        {% endfor %}
     </div>
     {% else %}
     <p>You are not logged in</p>

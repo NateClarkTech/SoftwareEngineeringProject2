@@ -32,12 +32,14 @@ def update_shoppinglist(request):
             # Rest of the code inside the loop
             #if the item is checked, delete it from the shopping list
             
-            if request.POST.get('item-' + str(i)) == 'true' & item.checked == False:
+            if request.POST.get('item-' + str(i)) == 'true':
                 item.checked = True
                 item.save()
-            elif request.POST.get('item-' + str(i)) == 'false' & item.checked == True:
+            else:
                 item.checked = False
-                item.save()     
+                item.save()
+
+    print(request.POST)            
                 
     return JsonResponse({'status': 'success'})
 

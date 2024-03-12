@@ -4,7 +4,8 @@ function sendUpdate() {
     let checkboxes = []
 
     for (let i = 1; i <= 51; i++) {
-        checkboxes.push(document.getElementById('item-' + i).checked);
+        let checkbox = document.getElementById('item-' + i);
+        checkboxes.document.getElementById('item-' + i).checked;
     }
 
     let params = new URLSearchParams();
@@ -55,17 +56,3 @@ window.onload = function() {
         }*/
     }
 };
-
-function printDiv(divId) {
-    var content = document.getElementById(divId).innerHTML;
-    var printWindow = window.open('', '', 'height=400,width=800');
-    printWindow.document.write('<html><head><title>Print</title></head><body>');
-    printWindow.document.write(content);
-    printWindow.document.write('</body></html>');
-    printWindow.document.close();
-
-    setTimeout(function() {
-        printWindow.print();
-        printWindow.close();
-    }, 1000); // Delay the print action by 1 second (1000 milliseconds)
-}

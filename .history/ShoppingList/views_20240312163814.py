@@ -26,18 +26,20 @@ def update_shoppinglist(request):
         if shoppingItems.count() == 0:
             create_user_shopping_list(request.user)
             shoppingItems = ShoppingListItem.objects.filter(user=request.user)
-
-        for i in range(shoppingItems.count()):
-            item = shoppingItems[i]
-            # Rest of the code inside the loop
+            
+        i = 0
+        for item in shoppingItems:
+            i = i + 1
             #if the item is checked, delete it from the shopping list
             
-            if request.POST.get('item-' + str(i)) == 'true' & item.checked == False:
-                item.checked = True
-                item.save()
-            elif request.POST.get('item-' + str(i)) == 'false' & item.checked == True:
-                item.checked = False
-                item.save()     
+            if request.POST.get('item-' + str(i)) == 'true':
+                item.checked = request.POST.get('item' + str(i))
+                shoppingItems.save()
+            else:
+                item.checked = request.POST.get('item' + str(i))
+                shoppingItems.save()
+                
+    print(request.POST)            
                 
     return JsonResponse({'status': 'success'})
 

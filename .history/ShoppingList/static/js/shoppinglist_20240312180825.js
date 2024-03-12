@@ -63,9 +63,5 @@ function printDiv(divId) {
     printWindow.document.write(content);
     printWindow.document.write('</body></html>');
     printWindow.document.close();
-
-    setTimeout(function() {
-        printWindow.print();
-        printWindow.close();
-    }, 1000); // Delay the print action by 1 second (1000 milliseconds)
+    printWindow.print();
 }

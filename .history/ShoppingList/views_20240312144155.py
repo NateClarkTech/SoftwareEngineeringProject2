@@ -2,13 +2,13 @@ from django.shortcuts import render
 from .models import ShoppingListItem, ShoppingListCategory
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
 
 @login_required(login_url='/profile/login/')
 def shoppinglist(request):
     #Make sure the user has a shopping list
-    shoppingItems = ShoppingListItem.objects.filter(user=request.user)
-    if shoppingItems.count() == 0:
+    try:
+        shoppingItems = ShoppingListItem.objects.filter(user=request.user)
+    except ShoppingListItem.DoesNotExist:
         create_user_shopping_list(request.user)
         shoppingItems = ShoppingListItem.objects.filter(user=request.user)
         
@@ -21,25 +21,19 @@ def shoppinglist(request):
 @csrf_exempt
 def update_shoppinglist(request):
     if request.method == 'POST':
-        #Make sure the user has a shopping list
-        shoppingItems = ShoppingListItem.objects.filter(user=request.user)
-        if shoppingItems.count() == 0:
+        #get the user's shopping list
+        try:
+            shoppingItems = ShoppingListItem.objects.filter(user=request.user)
+        except ShoppingListItem.DoesNotExist:
+            #make shopping list if user does not have one
             create_user_shopping_list(request.user)
             shoppingItems = ShoppingListItem.objects.filter(user=request.user)
-
-        for i in range(shoppingItems.count()):
-            item = shoppingItems[i]
-            # Rest of the code inside the loop
-            #if the item is checked, delete it from the shopping list
             
-            if request.POST.get('item-' + str(i)) == 'true' & item.checked == False:
-                item.checked = True
-                item.save()
-            elif request.POST.get('item-' + str(i)) == 'false' & item.checked == True:
-                item.checked = False
-                item.save()     
+        for item in shoppingItems:
+            #if the item is checked, delete it from the shopping list
+            if request.POST.get(item.name) == 'true':
                 
-    return JsonResponse({'status': 'success'})
+                
 
 
 
