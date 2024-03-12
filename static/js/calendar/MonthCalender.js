@@ -1,6 +1,7 @@
 import { html, render, useState } from 'https://cdn.jsdelivr.net/npm/preact-htm-signals-standalone@0.0.16/+esm'
 import { dateSig, monthSig, selectedDate, tasksSig, yearSig } from './store.js';
 import { getDaysInMonth, getEventInDay, getStartDayOfMonth } from './days.js';
+import { deleteTaskFromDB } from './database.js';
 
 const freq = {
     once: "🌟 Once",
@@ -25,8 +26,12 @@ export const TaskView = ({ task }) => {
     const typeIcon = types[task.type]
     const freqIcon = freq[task.freq]
     // draw the row, with task, name, type, date, frequency etc
-    const deleteTask = () => {
-        tasksSig.value = tasksSig.value.filter(t => t !== task)
+    const deleteTask = async() => {
+        if (task.id) {
+            if (await deleteTaskFromDB(task.id)) {
+                tasksSig.value = tasksSig.value.filter(t => t !== task)
+            }
+        }
     }
     const closeDelete = () => {
         setOpenDelete(false)

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'Profile',
     'dorms',
     'ShoppingList',
+    'restapi',
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'calendar'  # Adjust as needed
 LOGOUT_REDIRECT_URL = 'calendar'  # Adjust as needed
 
+#  CORS
+CORS_ORIGIN_ALLOW_ALL = True

@@ -1,58 +1,67 @@
 import { html, render, useState, useRef, useEffect } from 'https://cdn.jsdelivr.net/npm/preact-htm-signals-standalone@0.0.16/+esm'
 import { messageSig, tasksSig } from './store.js';
-import { addTask } from './database.js';
+import { addTask, addTaskToDB } from './database.js';
 import { getCareMessage } from './database.js';
 
 const CreatePopup = ({ closePopup, open }) => {
 
-    useEffect(() => {
-        if (!open) return
-        // Get the current date and time
-        const currentDate = new Date();
-        // Format the date as "YYYY-MM-DD" for the date input
-        const formattedDate = currentDate.toISOString().split('T')[0];
-        document.getElementById('cp-date').value = formattedDate;
-        // Format the time as "HH:mm" for the time input
-        const formattedTime = currentDate.toTimeString().slice(0, 5);
-        document.getElementById('cp-time').value = formattedTime;
-    }, [open])
+  useEffect(() => {
+    if (!open) return
+    // Get the current date and time
+    const currentDate = new Date();
+    // Format the date as "YYYY-MM-DD" for the date input
+    const formattedDate = currentDate.toISOString().split('T')[0];
+    document.getElementById('cp-date').value = formattedDate;
+    // Format the time as "HH:mm" for the time input
+    const formattedTime = currentDate.toTimeString().slice(0, 5);
+    document.getElementById('cp-time').value = formattedTime;
+  }, [open])
 
-    const save = () => {
-        try {
-            const title = document.querySelector('#cp-title').value.trim()
-            const type = document.querySelector('#cp-type').value.trim()
-            const date = document.querySelector('#cp-date').value.trim()
-            const time = document.querySelector('#cp-time').value.trim()
-            const desc = document.querySelector('#cp-desc').value.trim()
-            const freq = document.querySelector('#cp-freq').value.trim()
+  const save = async() => {
+    try {
+      const title = document.querySelector('#cp-title').value.trim()
+      const type = document.querySelector('#cp-type').value.trim()
+      const date = document.querySelector('#cp-date').value.trim()
+      const time = document.querySelector('#cp-time').value.trim()
+      const desc = document.querySelector('#cp-desc').value.trim()
+      const freq = document.querySelector('#cp-freq').value.trim()
 
-            if (title.length == 0 || type.length == 0 || date.length == 0 || time.length == 0 ||
-                desc.length == 0 || freq.length == 0) {
-                console.log("Missing date")
-                return
-            }
-            const dateTime = (new Date(`${date} ${time}`)).getTime()
-            addTask({ title, type, desc, freq, time: dateTime })
-            // clear the fields
-            document.querySelector('#cp-title').value = ""
-            document.querySelector('#cp-type').value = ""
-            document.querySelector('#cp-desc').value = ""
-            document.querySelector('#cp-freq').value = ""
-            // create popup
-            messageSig.value = {
-                open: true,
-                message: getCareMessage(),
-                type: 'Care Message',
-            }
-        } catch (e) {
-            console.warn("Save error")
+      if (title.length == 0 || type.length == 0 || date.length == 0 || time.length == 0 ||
+        desc.length == 0 || freq.length == 0) {
+        console.log("Missing date")
+        return
+      }
+      const dateTime = (new Date(`${date} ${time}`)).getTime()
+      const newTask = { title, type, desc, freq, time: dateTime, date:"0/0/2000" }
+      // addTask(newTask)
+      if (await addTaskToDB(newTask)) {
+        // clear the fields
+        document.querySelector('#cp-title').value = ""
+        document.querySelector('#cp-type').value = ""
+        document.querySelector('#cp-desc').value = ""
+        document.querySelector('#cp-freq').value = ""
+        // create popup
+        messageSig.value = {
+          open: true,
+          message: getCareMessage(),
+          type: 'Care Message',
         }
+      } else {
+        messageSig.value = {
+          open: true,
+          message: 'Could not save data',
+          type: 'info',
+        }
+      }
+    } catch (e) {
+      console.warn("Save error")
     }
+  }
 
-    if (!open) {
-        return null
-    }
-    return html`
+  if (!open) {
+    return null
+  }
+  return html`
     <div class='cp-body'>
       <div class='cp-content'>
         <div class='cp-header'>

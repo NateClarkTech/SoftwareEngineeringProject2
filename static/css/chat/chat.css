@@ -1,0 +1,164 @@
+body {
+    background-color: lightblue;
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    /* 100% viewport height (can do -10px if pref) */
+    padding: 10px;
+    gap: 10px;
+}
+
+
+/* nav css block */
+.nav-section {
+    background: rgb(174, 174, 243);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 300px;
+    font-weight: bolder;
+}
+
+.nav-cont {
+    flex: 1;
+    flex-direction: column;
+    margin-bottom: 5px;
+    border-radius: 20px;
+    margin-top: 5px;
+    padding: 40px 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+
+    color: white;
+    gap: 10px;
+    font-size: 1.1rem;
+
+}
+
+
+.nav-divider {
+    background: #655ddf;
+    margin: 0px -10px;
+    padding: 3px 10px;
+    font-weight: bolder;
+    font-size: 1.2rem;
+}
+
+/* end of nav css */
+main {
+    flex: 1;
+
+}
+
+.c-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: rgb(208, 211, 214);
+    padding: 10px;
+    min-width: calc(70vw);
+    margin: 0px 10px;
+}
+
+@media (max-width: 1000px) {
+    .c-body {
+        height: calc(100vh - 100px);
+        width: 96vw;
+    }
+}
+
+.title-cont {
+    color: blue;
+    font-weight: bold;
+}
+
+.c-messages {
+    flex: 1;
+    max-height: calc(100vh - 150px);
+    overflow: auto;
+    position: relative;
+    width: 100%;
+    background-color: aliceblue;
+    margin: 10px 0px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 5px;
+    
+}
+
+.c-mes {
+    display: flex;
+    flex-direction: column;
+    margin: 5px 10px;
+    background-color: rgb(255, 255, 255);
+    max-width: 60%;
+    padding: 4px 20px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.c-options {
+    position: absolute;
+    right: 30px;
+    top: 0px;
+    background-color: gray;
+    border-radius: 2px;
+    margin: 0px;
+    
+}
+
+.c-mes-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 10px;
+    font-size: 0.8rem;
+    color: blue;
+
+    
+}
+
+.c-send-box {
+    width: 100%;
+    color: blue;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.c-send-box input {
+    flex: 1;
+    font-size: 1.2rem;
+    color: slategray;
+}
+
+.c-send-box i {
+    font-size: 1.4rem;
+    background-color: rgb(255, 255, 255);
+    padding: 3px 10px;
+    border-radius: 4px;
+}
+
+.c-opts {
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid gray;
+    margin-top: 5px;
+}
+
+.c-opts>div {
+    cursor: pointer;
+    color: blue;
+}
+
+/* Bit useless now/ unneeded, can remove class from chat.js & should work fine || Originally used to break long msgs*/
+.msg-content {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    word-wrap: break-word; /* Ensures words break to prevent horizontal overflow */
+    white-space: normal; /* Ensure text wraps properly */
+
+}

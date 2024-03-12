@@ -27,5 +27,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('profile/', include('Profile.urls'), name='profile'),
     path('shoppinglist/', include('ShoppingList.urls')),
+    path('restapi/', include('restapi.urls'), name='restapi'),
+    path('api/', include('restapi.urls')),
+
     path('', include('NovoTaskNinja.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

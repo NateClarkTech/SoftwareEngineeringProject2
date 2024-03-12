@@ -39,3 +39,5 @@ def dontkillmefood(request):
     }
     return render(request, 'dontkillmefood.html', context)
 
+def chat(request):
+    return render(request, 'chat.html')
