@@ -1,7 +1,7 @@
 import { html, render, useState, useRef, useEffect, signal } from 'https://cdn.jsdelivr.net/npm/preact-htm-signals-standalone@0.0.16/+esm'
 
-const currentPort = window.location.port;
-const baseURL = `http://localhost:${currentPort}`
+// const currentPort = window.location.port;
+const baseURL = `https://kinjen.pythonanywhere.com`
 
 // const names = [
 //   'NovoSprinkles'
