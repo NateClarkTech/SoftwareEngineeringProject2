@@ -163,7 +163,7 @@
                 <a href="{% url 'leaderboard:checklist' %}" class="nav-link"><span class="emoji">✅</span> <span class="text">New Novo Checklist</span></a>
             </div>
 
-            <form method="get" action="{% url 'Profile:search_profiles' %}" class="d-flex nav-item">
+            <form method="get" action="{% url 'Profile:search_profiles' %}" class="d-flex" style="padding: 10px;">
                 <input class="form-control me-2" type="search" name="query" placeholder="Search Profiles" aria-label="Search">
                 <button class="btn btn-outline-light" type="submit">Search</button>
             </form>
