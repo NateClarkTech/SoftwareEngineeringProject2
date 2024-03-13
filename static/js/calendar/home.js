@@ -19,30 +19,31 @@ const Home = () => {
     const [viewType, setViewType] = useState('MONTH')
     const [createPopupOpen, setCreatePopupOpen] = useState(false)
     const dateTitleRef = useRef()
+    const [width, setWidth] = useState()
+    const isMobile = width < 500
+    // check size and hide nav bar
+    useEffect(() => {
+        const resizeObserver = new ResizeObserver((entries) => {
+            for (const entry of entries) {
+                setWidth(entry.contentRect.width)
+                const { target, contentRect } = entry;
+                console.log(`Size of document body changed to ${contentRect.width}x${contentRect.height}`);
+            }
+        });
+        resizeObserver.observe(document.body);
+    }, [])
 
     // This is a custome hook, it managed the tasks, like loads and saves them has when they chnage or app loads
     useTasks()
 
-    // updates timer
-    useEffect(() => {
-        setInterval(() => {
-            try {
-                const time = new Date()
-                let hrs = time.getHours()
-                let min = time.getMinutes()
-                hrs = hrs < 10 ? ('0' + hrs) : hrs
-                min = min < 10 ? ('0' + min) : min
 
-                document.querySelector('#time').innerText = `${hrs}:${min}`
-            } catch (e) {
-                console.log(e)
-            }
-        }, 1000)
-    }, [])
 
     // THis hook, runs once when app loads and sets date to current date
     useEffect(() => {
-        dateSig.value = (new Date()).getDate()
+        const now = (new Date())
+        monthSig.value = now.getMonth()
+        dateSig.value = now.getDate()
+        yearSig.value = now.getFullYear()
     }, [])
 
     // This hook runs when yearSig or monthSig chnages and chnages the title of the date on the calender
@@ -89,17 +90,21 @@ const Home = () => {
         const extraClasses = view === viewType ? 'bg-primary' : ''
         // draw the actual view button
         return html`
-            <button type="button" class=${`btn btn-outline-primary ${extraClasses}`}
+            <button type="button" class=${`btn btn-outline-primary view-button ${extraClasses} `}
             onClick=${clicked}
             >
                 ${view.toUpperCase()}
             </button>
         `
     }
+
     // this draws the scheduler page
+    const mainStyles = isMobile ? 'max-width: 96.5vw' : 'max-width: 73.5vw';
+    console.log(mainStyles)
     return html`
+      <div class="body-cont">
         <!--MAIN SECTION-->
-        <div class="main ">
+        <div class="main " style="${mainStyles}" >
             <div class="buttons">
                 <${ViewButton} view="DAY"  />
                 <${ViewButton} view="WEEK"  />
@@ -134,8 +139,15 @@ const Home = () => {
         <!-- WILL SHOW CREATE POPUP -->
         <${CreatePopup} open=${createPopupOpen} closePopup=${closePopup} />
         <${MessagePopup}  />
+
+    </div>
     `
+
 }
 
-const contentDiv = document.getElementById('calendarDiv');
-render(html`<${Home} />`, contentDiv);
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('loaded')
+    const divElement = document.getElementById('calendar')
+    console.log(divElement)
+    render(html`<${Home} /> `, divElement)
+})

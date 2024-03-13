@@ -1,0 +1,62 @@
+.card {
+
+    border-color: white;
+}
+
+.card-text {
+    color: #7BAFD4;
+}
+
+.card-title {
+    color: #7C2855;
+}
+body {
+    background-color: #7BAFD4;
+}
+
+.mainTitle {
+    color: white;
+    font-family: serif;
+}
+
+.card-header {
+    border: none;
+}
+
+.carousel-item {
+    height: 400px; /* Adjust this value as needed */
+  }
+  
+@media (max-width: 576px) { /* Adjust this value as needed */
+.carousel-item {
+    height: 200px; /* Adjust this value as needed */
+    }
+}
+
+.carousel-item img {
+object-fit: cover;
+}
+
+@media (min-width: 992px) {
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+  
+    .card {
+      margin-left: 256px;
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
+  .carousel-item {
+    height: 300px; /* Adjust as needed */
+  }
+  
+  .carousel-item img {
+    height: 100%;
+    object-fit: cover;
+  }

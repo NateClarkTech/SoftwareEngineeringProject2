@@ -1,17 +1,60 @@
-{% extends 'base.html' %}
-{% block content %}
-    <h1>Home</h1>
-    <p>Welcome Novos!</p>
+{% extends "base.html" %}
+{% load static  %}
 
-    <h2>If you are new to New College, feel free to register here, or login if you already have an account.</h2>    
+{% block title %}Welcome to Novo-Planning{% endblock %}
 
-    <p>We have a lot of things to offer, such as:</p>
-    <ul>
-        <li>A calendar with every date already loaded</li>
-        <li>A customizable profile page</li>
-        <li>Chat with other Novos</li>
-        <li>And much more!</li>
-    </ul>
+{% block extendHeader %}
+<!-- Custom CSS for welcome page if needed -->
+<style>
+    .welcome-header {
+        text-align: center;
+        padding: 2rem 0;
+    }
+    .welcome-content {
+        padding: 1rem;
+        text-align: center;
+    }
+    .app-functions {
+        margin: 2rem 0;
+    }
+    .call-to-action {
+        background: #f4f4f4;
+        border: 1px solid #ddd;
+        padding: 2rem;
+        margin-top: 2rem;
+    }
+    /* recolor the links */
     
+</style>
 {% endblock %}
-```
+
+{% block content %}
+<div class="container">
+    <div class="welcome-header">
+        <img src="{% static 'images/Nupathheader.png' %}" alt="Header Image" class="img-fluid" style="max-height: 200px;">
+        <h1>Welcome to NuPath</h1>
+    </div>
+    <div class="welcome-content">
+        <p>NuPath is a site dedicated to helping new students at the New College of Forida adapt to this new environment, and stay informed of important dates, contact other Novos, Keep track of closing times, and food quality.</p>
+    </div>
+
+    <div class="app-functions">
+        <h2>App Features</h2>
+        <ul>
+            <li><a href = {% url 'calendar' %}><strong>Calendar:</strong></a> Keep track of your important dates, deadlines, and events.</li>
+            <li><a href = {% url 'ncfhours' %}><strong>NCF Hours:</strong></a> Keep track of importat opening and closing times for many organizations on campus.</li>
+            <li><a href = {% url 'dontkillmefood' %}><strong>Don't Kill Me Food:</strong></a> Keep track of which days the food may be lethal on campus.</li>
+            <li><a href = "https://novoconnect.ncf.edu/organizations"><strong>Organizations:</strong></a> Connect with student organizations and become a part of the campus community.</li>
+            <li><a href = {% url 'Profile:profile' %}><strong>Personal Profiles:</strong></a> Customize your profile, See others, and interact with your fellow students.</li>
+            <li><a href = {% url 'ncfhours' %}><strong>Chat:</strong></a> Chat with other students at New College.</li>
+            <li><a href = {% url 'ncfhours' %}><strong>Leaderboard/Checklist</strong></a> Keep track of your progress on the New College checklist and leaderboard, mark things as done to gain points!.</li>
+            <li><a href = {% url 'ncfhours' %}><strong>Shopping List:</strong></a> Find must haves for your life here at new college.</li>
+        </ul>
+    </div>
+
+    <div class="call-to-action">
+        <h2>Get Started!</h2>
+        <p>To access all features, please <a href="{% url 'Profile:login' %}">log in</a> or <a href="{% url 'Profile:register' %}">register</a> if you don't have an account yet.</p>
+    </div>
+</div>
+{% endblock %}

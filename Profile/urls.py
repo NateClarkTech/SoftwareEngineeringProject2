@@ -17,11 +17,13 @@ urlpatterns = [
     path('profile/<str:username>/', views.public_profile, name='public_profile'),  # For viewing other users' profiles
     path('edit_profile/', views.edit_profile, name='edit_profile'),
     path('search/', views.search_profiles, name='search_profiles'),
+
     
         # Login/logout stuff
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('register/', views.register, name='register'),
+    
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
