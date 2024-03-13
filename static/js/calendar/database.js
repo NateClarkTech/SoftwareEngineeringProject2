@@ -1,8 +1,10 @@
 import { useEffect } from 'https://cdn.jsdelivr.net/npm/preact-htm-signals-standalone@0.0.16/+esm'
 import { tasksSig } from "./store.js"
 
+// const currentPort = window.location.port;
 const currentPort = window.location.port;
 const BASE_URL = `http://127.0.0.1:${currentPort}`
+
 
 export const getUID = () => {
     return Math.floor(Math.random() * 100000)
