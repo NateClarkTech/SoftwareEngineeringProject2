@@ -10,7 +10,8 @@ class Task(models.Model):
     type = models.CharField(max_length=30, default="")
     time = models.BigIntegerField(default=0)
     desc = models.TextField(default='')
-    
+    userid = models.BigIntegerField(default=0)
+
     def __str__(self):
         return self.title
 

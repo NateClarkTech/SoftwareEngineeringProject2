@@ -22,7 +22,7 @@ urlpatterns = [
 
     # CALENDER API
     path('add_task/', add_task, name='add_task'),
-    path('get_tasks', get_tasks, name='get_tasks'),
+    path('get_tasks/<int:userid>/', get_tasks, name='get_tasks'),
     path('delete_task/<int:task_id>/', delete_task, name='delete_task'),
     
 

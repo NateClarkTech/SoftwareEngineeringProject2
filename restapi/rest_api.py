@@ -22,6 +22,7 @@ def add_task(request):
             type=data.get('type'),
             time=data.get('time'),
             desc=data.get('desc'),
+            userid=int(data.get('userid'))
         )
         new_task.save()
         print(new_task)
@@ -31,9 +32,9 @@ def add_task(request):
 
 
 @csrf_exempt
-def get_tasks(request):
+def get_tasks(request, userid):
     if request.method == 'GET':
-        tasks = Task.objects.all()
+        tasks = Task.objects.filter(userid=userid)
         got_tasks = [
             {
                 "id": task.id,
@@ -42,7 +43,7 @@ def get_tasks(request):
                 "freq": task.freq,
                 "type": task.type,
                 "time": task.time,
-
+                'userid': task.userid,
             } for task in tasks
         ]
         return JsonResponse({'tasks': got_tasks})
@@ -65,7 +66,7 @@ def delete_task(request, task_id):
 @csrf_exempt
 def add_message(request):
     if request.method == 'POST':
-        #user = models.OneToOneField(User, on_delete=models.CASCADE)
+        # user = models.OneToOneField(User, on_delete=models.CASCADE)
         data = json.loads(request.body.decode('utf-8'))
         sender = data.get('sender')
 
@@ -98,6 +99,10 @@ def get_messages(request):
 
             } for message in mes
         ]
+        if request.user.is_authenticated:
+            print("logged in")
+
+        print('name', request.user.username.title())
         return JsonResponse({'mes': got_mes})
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=400)
@@ -114,8 +119,7 @@ def delete_message(request, message_id):
         return JsonResponse({'error': 'Invalid request method'}, status=400)
 
 
-@login_required
-@csrf_exempt
+@login_required # won't work bc APIs aren't actually pages
 def get_username(request):
     if request.method == 'GET':
         return JsonResponse({'name': request.user.username})

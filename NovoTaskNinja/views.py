@@ -1,6 +1,6 @@
 from django.utils.dateparse import parse_time
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages # for celebration message
+from django.contrib import messages  # for celebration message
 from django.views.decorators.http import require_http_methods
 from .models import *
 from .forms import *
@@ -9,15 +9,21 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 
 
-
 def calendar(request):
-    return render(request, 'calendar.html')
+    data = {
+        "user_id": request.user.id,
+        "user_name": request.user.username
+    }
+    return render(request, 'calendar.html', data)
+
 
 def ncfhours(request):
     return render(request, 'ncfhours.html')
 
+
 def home(request):
     return render(request, 'home.html')
+
 
 @require_http_methods(["GET", "POST"])
 def dontkillmefood(request):
@@ -39,5 +45,10 @@ def dontkillmefood(request):
     }
     return render(request, 'dontkillmefood.html', context)
 
+
 def chat(request):
-    return render(request, 'chat.html')
+    data = {
+        "user_id": request.user.id,
+        "user_name": request.user.username
+    }
+    return render(request, 'chat.html', data)

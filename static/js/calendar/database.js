@@ -29,11 +29,13 @@ export const getJSON = async (url, content) => {
 }
 
 export const getAllTasks = async () => {
-    let [failed, res] = await getJSON(`${BASE_URL}/api/get_tasks`)
+    const id =  parseInt(window.user_id||0) 
+    let [failed, res] = await getJSON(`${BASE_URL}/api/get_tasks/${id}/`)
     // console.log(failed, res)
     if (failed) {
         return []
     } else {
+        console.log('task',id, res.tasks)
         return res.tasks
     }
 }
@@ -88,24 +90,6 @@ export const getAllMessage = async (data) => {
         return res.tasks
     }
 }
-
-
-// addmessage({
-//     sender: 'Nova',
-//     val: 'Testing app',
-//     time: 171911917819,
-// })
-
-// addTaskToDB(
-//     {
-//         "title": "January Interterm Begins",
-//         "date": "2024-01-03",
-//         "freq": "yearly",
-//         "type": "school",
-//         "hint": "no-save",
-//         "time": (new Date()).getTime(),
-//     }
-// )
 
 export const useTasks = () => {
     useEffect(() => {

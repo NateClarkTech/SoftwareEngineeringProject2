@@ -77,34 +77,38 @@ export const getEventInDay = (year, month, day) => {
                 foundTasks.push(task)
             }
         }
+        /** Quick fix for fre bug were event doesn't appear on the 1st day
+         *  -  MOve start day 24hrs behide
+         */
+        const modifiedTime = task.time - (24 * 60 * 60 * 1000)
         if (task.freq === 'daily') {
-            if (startTime >= task.time) {
+            if (startTime >= modifiedTime) {
                 foundTasks.push(task)
             }
         }
         if (task.freq === 'weekly') {
-            if (startTime >= (task.time - oneDay)) {
+            if (startTime >= (modifiedTime - oneDay)) {
                 if (taskDate.getDay() === date.getDay()) {
                     foundTasks.push(task)
                 }
             }
         }
         if (task.freq === 'yearly') {
-            if (startTime >= (task.time - oneDay)) {
+            if (startTime >= (modifiedTime - oneDay)) {
                 if (taskDate.getDate() === date.getDate() && taskDate.getMonth() == date.getMonth()) {
                     foundTasks.push(task)
                 }
             }
         }
         if (task.freq === 'weekdays') {
-            if (startTime >= (task.time - oneDay)) {
+            if (startTime >= (modifiedTime - oneDay)) {
                 if ([1, 2, 3, 4, 5].includes(date.getDay())) {
                     foundTasks.push(task)
                 }
             }
         }
         if (task.freq === 'weekends') {
-            if (startTime >= (task.time - oneDay)) {
+            if (startTime >= (modifiedTime - oneDay)) {
                 if ([0, 6].includes(date.getDay())) {
                     foundTasks.push(task)
                 }

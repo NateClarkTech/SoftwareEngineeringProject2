@@ -3,10 +3,6 @@ import { html, render, useState, useRef, useEffect, signal } from 'https://cdn.j
 const currentPort = window.location.port;
 const baseURL = `http://localhost:${currentPort}`
 
-// const names = [
-//   'NovoSprinkles'
-// ];
-
 
 export const getJSON = async (url, content) => {
     try {
@@ -21,26 +17,16 @@ export const getJSON = async (url, content) => {
 
 let oldCont = -1
 const App = () => {
-    const [userName, setUserName] = useState('NovoSprinkles');
+    const [userName, setUserName] = useState('Guest');
     const [messages, setMessages] = useState([])
 
-    // Fetch the logged-in user's name once when the component mounts
-    useEffect(() => {
-        const fetchUserName = async () => {
-            const [failed, response] = await getJSON(`${baseURL}/api/get_user_name/`);
-            if (!failed) {
-                setUserName(response.name); // Set the fetched name to state
-            }
-        };
-        fetchUserName();
-    }, []); // Empty dependency array to run only once on mount
-    
 
     useEffect(() => {
         const timer = setInterval(() => {
             loadMessages()
         }, 1000)
         loadMessages()
+        setUserName(window.user_name || 'Guest')
         return () => clearInterval(timer)
     }, [])
 
@@ -119,8 +105,12 @@ const App = () => {
         }
         addMessageToDB(newMes)
         document.querySelector('#c-mes').value = ""
-
     }
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            addmessage()
+        }
+    };
 
     const MessageRow = ({ mes, pos }) => {
         const [open, setOpen] = useState(false)
@@ -135,7 +125,7 @@ const App = () => {
         }
         return html`
             <div class='c-mes' >
-                <div  class='c-options' onClick=${() => setOpen(!open)} > ⚙️ </div>
+                ${userName == mes.sender && html`<div  class='c-options' onClick=${() => setOpen(!open)} > ⚙️ </div>`}
                 <div class='msg-content'>${mes.val}</div>
                 <div class='c-mes-row' >
                     <div>${mes.sender}</div>
@@ -159,8 +149,9 @@ const App = () => {
         </div>
         
         <div class='c-send-box' >
-            <input placeholder='type message ... ' id='c-mes' /> 
-            <i class="fas fa-paper-plane"  onClick=${addmessage} ></i>
+            <input placeholder='type message ... ' id='c-mes'
+            onKeyPress=${handleKeyPress}  /> 
+            <i class="fas fa-paper-plane"  onClick=${addmessage}  ></i>
         </div>     
     </div>
     `

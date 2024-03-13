@@ -4,7 +4,7 @@ import { WeekCalender } from './WeekCalender.js'
 import { DayCalender } from './DayCalender.js'
 import { MonthCalender } from './MonthCalender.js'
 import { SemCalender } from './YearCalender.js'
-import { dateSig, monthSig } from './store.js'
+import { dateSig, monthSig, selectedDate } from './store.js'
 import { yearSig } from './store.js'
 import { getMonthName } from './days.js'
 import CreatePopup from './CreatePopup.js'
@@ -36,8 +36,7 @@ const Home = () => {
     // This is a custome hook, it managed the tasks, like loads and saves them has when they chnage or app loads
     useTasks()
 
-
-
+   
     // THis hook, runs once when app loads and sets date to current date
     useEffect(() => {
         const now = (new Date())

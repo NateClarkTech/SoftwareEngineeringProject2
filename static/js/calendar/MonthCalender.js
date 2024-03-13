@@ -94,6 +94,7 @@ export const EventsDisplay = ({ tasks, type, day, month, time }) => {
     if (type == 'WEEK' && selectedDate.value[2] !== time) {
         return null
     }
+  
     // draw the card with selected tasks
     return html`
     <div class='m-event-display' >

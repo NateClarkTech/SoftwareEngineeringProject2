@@ -17,7 +17,7 @@ const CreatePopup = ({ closePopup, open }) => {
     document.getElementById('cp-time').value = formattedTime;
   }, [open])
 
-  const save = async() => {
+  const save = async () => {
     try {
       const title = document.querySelector('#cp-title').value.trim()
       const type = document.querySelector('#cp-type').value.trim()
@@ -25,14 +25,14 @@ const CreatePopup = ({ closePopup, open }) => {
       const time = document.querySelector('#cp-time').value.trim()
       const desc = document.querySelector('#cp-desc').value.trim()
       const freq = document.querySelector('#cp-freq').value.trim()
-
+      const userid = parseInt(window.user_id || 0)
       if (title.length == 0 || type.length == 0 || date.length == 0 || time.length == 0 ||
         desc.length == 0 || freq.length == 0) {
         console.log("Missing date")
         return
       }
       const dateTime = (new Date(`${date} ${time}`)).getTime()
-      const newTask = { title, type, desc, freq, time: dateTime, date:"0/0/2000" }
+      const newTask = { title, type, desc, freq, time: dateTime, date: "0/0/2000", userid }
       // addTask(newTask)
       if (await addTaskToDB(newTask)) {
         // clear the fields
