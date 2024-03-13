@@ -59,16 +59,10 @@ window.onload = function() {
 function printDiv(divId) {
     var content = document.getElementById(divId).cloneNode(true); // Clone the content to preserve the original
     var checkboxes = content.querySelectorAll('input[type="checkbox"]');
-    var anchors = content.getElementsByTagName('a');
 
     // Disable checkboxes
     for (var i = 0; i < checkboxes.length; i++) {
         checkboxes[i].disabled = true;
-    }
-
-    // Replace the text content of anchor tags with their href attributes
-    for (var i = 0; i < anchors.length; i++) {
-        anchors[i].textContent = anchors[i].href;
     }
 
     var printWindow = window.open('', '', 'height=400,width=800');
