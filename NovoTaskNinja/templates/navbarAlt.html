@@ -26,7 +26,6 @@
         .navbar {
             display: flex;
             flex-direction: column;
-            text-align: left;
             height: 100vh;
             width: 250px;
             background-color: var(--navbar-bg-color);
@@ -41,7 +40,6 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: Adds a shadow for depth */
             display: flex;
             flex-direction: column;
-            align-items: left;
             width: 100%; /* Ensures it extends across the entire navbar */
             text-align: center;
 
@@ -61,8 +59,9 @@
             padding: 10px;
             text-decoration: none;
             display: block;
-            text-align:center;
+            text-align: center;
             background-color: transparent;  /* Removed section bg-color from individual links */
+            width
         }
 
         .nav-item:hover {
@@ -127,6 +126,40 @@
             }
         }
 
+        /* Specefic styles for the modal */
+        .modal-content {
+            border: 3px solid #dee2e6; 
+            border-radius: 0.3rem;
+            box-sizing: border-box; 
+        }
+        
+        .modal-body .nav-link {
+            display: block;
+            color: black;
+            text-decoration: none;
+            padding: 0.5rem 1rem; /* Consistent padding with other items */
+            background-color: #7BAFD4; /* Use the same section color */
+            border: 1px solid black; /* Add a border to separate items */
+        }
+        .modal-body form {
+            display: flex;
+            padding: 0.5rem; /* Example padding */
+            gap: 0.5rem; /* Space between input and button */
+            margin-bottom: 0; /* Remove any default margins */
+            background-color: #7BAFD4; /* Use the same section color */
+            border: 1px solid black; /* Add a border to separate items */
+        }
+        .modal-body button {
+            padding: 0.5rem 1rem; /* Consistent padding with other items */
+            background-color: #007bff; /* Blue button color */
+            color: white; /* White text color */
+            border: 1px solid black; /* Add a border to separate items */
+        }
+        /* make the button go majenta on hover */
+        .modal-body button:hover {
+            background-color: #7C2855; /* Hover color */
+        }
+
         
     </style>
 </head>
@@ -161,6 +194,9 @@
             </div>
             <div class="nav-item">
                 <a href="{% url 'leaderboard:checklist' %}" class="nav-link"><span class="emoji">✅</span> <span class="text">New Novo Checklist</span></a>
+            </div>
+            <div class = "nav-item">
+                <a href="{% url 'chat' %}" class="nav-link">💬 Chat</a>
             </div>
 
             <form method="get" action="{% url 'Profile:search_profiles' %}" class="d-flex nav-item">
@@ -210,28 +246,51 @@
                     </div>
                     <div class="modal-body">
                         <!-- Repeat the navigation links here for mobile -->
+                        <div class = "nav-item">
+                            <a href="{% url 'calendar' %}" class="nav-link">📅 Calendar</a>
+                        </div>
+                        <div class = "nav-item">
+                            <a href="{% url 'ncfhours' %}" class="nav-link">📚 NCF Hours</a>
+                        </div>
+                        <div class = "nav-item">
+                            <a href="{% url 'dontkillmefood' %}" class="nav-link">🍔 Don't Kill Me Food</a>
+                        </div>
+                        <div class = "nav-item">
+                            <a href="{% url 'shoppinglist' %}" class="nav-link">🛒 Shopping List</a>
+                        </div>
+                        <div class = "nav-item">
+                            <a href="{% url 'dorms:dorm_info_view' %}" class="nav-link">🏠 Dorms</a>
+                        </div>
+                        <div class = "nav-item">
+                            <a href="{% url 'leaderboard:leaderboard' %}" class="nav-link">🏆 Leaderboard</a>
+                        </div>
+                        <div class = "nav-item">
+                            <a href="{% url 'leaderboard:checklist' %}" class="nav-link">✅ New Novo Checklist</a>
+                        </div>
+                        <div class = "nav-item">
+                            <a href="{% url 'chat' %}" class="nav-link">💬 Chat</a>
+                        </div>
 
-                        <a href="{% url 'calendar' %}" class="d-block">🗓️ Calendar</a>
-                        <a href="{% url 'ncfhours' %}" class="d-block">📚 NCF Hours</a>
-                        <a href="{% url 'dontkillmefood' %}" class="d-block">🍔 Don't Kill Me Food</a>
-                        <a href="{% url 'shoppinglist' %}" class="d-block">🛒 Shopping List</a>
-                        <a href="https://novoconnect.ncf.edu/organizations" class="d-block">🎓 Organizations</a>
-                        <a href="{% url 'dorms:dorm_info_view' %}" class="d-block">🏠 Dorms</a>
-                        <a href="{% url 'leaderboard:leaderboard' %}" class="d-block">🏆 Leaderboard</a>
-                        <a href="{% url 'leaderboard:checklist' %}" class="d-block">✅ New Novo Checklist</a>
+
+                        <div class = "nav-item">
+                            <a href="https://novoconnect.ncf.edu/organizations" class="nav-link">🎓 Organizations</a>
+                        </div>
 
                         <form method="get" action="{% url 'Profile:search_profiles' %}" class="d-flex">
                             <input class="form-control me-2" type="search" name="query" placeholder="Search Profiles" aria-label="Search">
                             <button class="btn btn-outline-success" type="submit">Search</button>
                         </form>
+
                         <!-- Authentication Links for Mobile -->
-                        {% if user.is_authenticated %}
-                            <a href="{% url 'Profile:profile' %}" class="d-block">👤 Profile</a>
-                            <a href="{% url 'Profile:logout' %}" class="d-block">🚪 Logout</a>
-                        {% else %}
-                            <a href="{% url 'Profile:login' %}" class="d-block">🔑 Login</a>
-                            <a href="{% url 'Profile:register' %}" class="d-block">📝 Register</a>
-                        {% endif %}
+                        <div class="nav-item">
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'Profile:profile' %}" class="nav-link">👤 Profile</a>
+                                <a href="{% url 'Profile:logout' %}" class="nav-link">Logout</a>
+                            {% else %}
+                                <a href="{% url 'Profile:login' %}" class="nav-link">Login</a>
+                                <a href="{% url 'Profile:register' %}" class="nav-link">Register</a>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
