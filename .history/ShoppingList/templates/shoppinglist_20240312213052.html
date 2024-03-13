@@ -47,7 +47,7 @@
                 <h3>{{ category }}</h3>
                 {% for item in shoppingItems %}
                     {% if item.category == category %}
-                        <div id="itembox-{{ forloop.counter }}" class="item-box d-flex {% if item.checked %}checked{%else%}not-checked{% endif %}">
+                        <div id="item-box-{{ forloop.counter }}" class="item-box d-flex {% if item.checked %}checked{%else%}not-checked{% endif %}">
                             <label for="item-{{ forloop.counter }}" class="flex-grow-1 p-2">{{ item.name }}</label>
                             <a href="{{ item.url }}" target="_blank" class="p-2">Buy Now</a>
                             <input type="checkbox" id="item-{{ forloop.counter }}" class="p-2" {% if item.checked %}checked{% endif %}>

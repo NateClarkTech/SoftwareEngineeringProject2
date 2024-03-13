@@ -59,22 +59,13 @@ function shoot() {
 
 for (let i = 1; i <= 51; i++) {
     let checkbox = document.getElementById('item-' + i);
-    let itembox = document.getElementById('itembox-' + i);
     checkbox.addEventListener('change', function() {
         sendUpdate();  // Send the update to the server
         
-        if (checkbox.checked) {
-            // Trigger a custom confetti effect
-            itembox.classList.remove('not-checked');
-            itembox.classList.add('checked');
-            setTimeout(shoot, 0);
-            setTimeout(shoot, 100);
-            setTimeout(shoot, 200);
-        }
-        else{
-            itembox.classList.remove('checked');
-            itembox.classList.add('not-checked');  
-        }
+        // Trigger a custom confetti effect
+        setTimeout(shoot, 0);
+        setTimeout(shoot, 100);
+        setTimeout(shoot, 200);
     });
 }
 
@@ -92,6 +83,12 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+
+window.onload = function() {
+    for (let i = 1; i <= 51; i++) {
+        let checkbox = document.getElementById('item-' + i);
+    }
+};
 
 function printDiv(divId) {
     var content = document.getElementById(divId).innerHTML;
