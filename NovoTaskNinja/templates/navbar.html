@@ -204,6 +204,9 @@
             <div class="nav-item">
                 <a href="{% url 'leaderboard:checklist' %}" class="nav-link"><span class="emoji">✅</span> <span class="text">New Novo Checklist</span></a>
             </div>
+            <div class = "nav-item">
+                <a href="{% url 'chat' %}" class="nav-link">💬 Chat</a>
+            </div>
             <form method="get" action="{% url 'Profile:search_profiles' %}" class="d-flex">
                 <input class="form-control me-2" type="search" name="query" placeholder="Search Profiles" aria-label="Search">
                 <button class="btn btn-primary" type="submit">Search</button>
@@ -282,6 +285,9 @@
                         </div>
                         <div class = "nav-item">
                             <a href="{% url 'leaderboard:checklist' %}" class="nav-link">✅ New Novo Checklist</a>
+                        </div>
+                        <div class = "nav-item">
+                            <a href="{% url 'chat' %}" class="nav-link">💬 Chat</a>
                         </div>
 
 
