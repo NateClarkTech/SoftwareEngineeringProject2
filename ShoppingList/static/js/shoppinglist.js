@@ -24,11 +24,57 @@ function sendUpdate() {
     });
 }
 
+var scalar = 2;
+var money = confetti.shapeFromText({ text: '💸', scalar });
+
+var defaults = {
+  spread: 360,
+  ticks: 60,
+  gravity: 0,
+  decay: 0.96,
+  startVelocity: 20,
+  shapes: [money],
+  scalar
+};
+
+function shoot() {
+  confetti({
+    ...defaults,
+    particleCount: 30
+  });
+
+  confetti({
+    ...defaults,
+    particleCount: 5,
+    flat: true
+  });
+
+  confetti({
+    ...defaults,
+    particleCount: 15,
+    scalar: scalar / 2,
+    shapes: ['circle']
+  });
+}
 
 for (let i = 1; i <= 51; i++) {
     let checkbox = document.getElementById('item-' + i);
+    let itembox = document.getElementById('itembox-' + i);
     checkbox.addEventListener('change', function() {
         sendUpdate();  // Send the update to the server
+        
+        if (checkbox.checked) {
+            // Trigger a custom confetti effect
+            itembox.classList.remove('not-checked');
+            itembox.classList.add('checked');
+            setTimeout(shoot, 0);
+            setTimeout(shoot, 100);
+            setTimeout(shoot, 200);
+        }
+        else{
+            itembox.classList.remove('checked');
+            itembox.classList.add('not-checked');  
+        }
     });
 }
 
@@ -47,28 +93,13 @@ function getCookie(name) {
     return cookieValue;
 }
 
-window.onload = function() {
-    for (let i = 1; i <= 51; i++) {
-        let checkbox = document.getElementById('item-' + i);
-        /*if (checkbox.checked) {
-            REPLACE WITH SOMETHING
-        }*/
-    }
-};
-
 function printDiv(divId) {
     var content = document.getElementById(divId).cloneNode(true); // Clone the content to preserve the original
     var checkboxes = content.querySelectorAll('input[type="checkbox"]');
-    var anchors = content.getElementsByTagName('a');
 
     // Disable checkboxes
     for (var i = 0; i < checkboxes.length; i++) {
         checkboxes[i].disabled = true;
-    }
-
-    // Replace the text content of anchor tags with their href attributes
-    for (var i = 0; i < anchors.length; i++) {
-        anchors[i].textContent = anchors[i].href;
     }
 
     var printWindow = window.open('', '', 'height=400,width=800');
