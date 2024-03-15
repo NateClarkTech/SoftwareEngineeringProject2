@@ -1,7 +1,7 @@
 console.log("JavaScript file is linked!");
 
 function sendUpdate() {
-    fetch('/leaderboard/update_checklist/', {  // Update this line
+    fetch('/leaderboard/update_checklist/', {  
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',

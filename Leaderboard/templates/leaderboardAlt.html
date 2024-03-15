@@ -1,3 +1,4 @@
+<!-- Extend our base template for our navbar and laod static for our css -->
 {% extends "baseAlt.html" %}
 {% load static %}
 
@@ -12,19 +13,24 @@ Leaderboard
 {% block content %}
 
 
-
+<!-- Container to hold our components -->
 <div class="container mt-5">
+  <!-- Leaderboard title -->
   <h1 class="text-center ">LEADERBOARD</h1>
+  <!-- cointainer for our leaderboard -->
   <div class="table-responsive">
+    <!-- Table to represent our leaderboard -->
     <table class="table">
       <thead class="table-light">
         <tr>
+          <!-- Column names -->
           <th scope="col">Rank🏆</th>
           <th scope="col">Name😺</th>
           <th scope="col">Score🥳</th>
         </tr>
       </thead>
       <tbody>
+        <!-- View populates and creates the rows of player data -->
         {% for player in players %}
         <tr class="{% cycle 'table-primary' 'table-secondary' 'table-success' 'table-danger' 'table-warning' 'table-info' 'table-light' %}">
           <th scope="row">{{ player.rank }}</th>

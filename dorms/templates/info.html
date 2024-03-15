@@ -1,4 +1,6 @@
+<!-- extend the base template to give us our nav bars -->
 {% extends "baseAlt.html" %}
+<!-- Important tag to make sure we can access files in our static directory -->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -9,6 +11,7 @@
 Dorm Info
 {% endblock %}
 
+<!-- This is the block where our CSS lives, on this page I use the standard bootstrap 5 file as well as a stylesheet with a FEW custom styles that bootstrap couldnt do -->
 {% block css %}
 <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 <link href="{% static 'css/dorminfo.css' %}" rel="stylesheet">
@@ -16,13 +19,18 @@ Dorm Info
 
 </head>
 
-
+<!-- The architecure of the page is simple, I will label the components of this first card, the page is just three cards with different information/images -->
 {% block content %}
 <div class="container">
+  <!-- Page title -->
   <h1 class="text-center display-1 mainTitle">Dorm Info</h1>
+  <!-- Container that holds our cards -->
   <div class="row justify-content-center">
+    <!-- Holds the first card -->
     <div class="col-lg-8 mb-3 mt-3">
+      <!-- Our actual card, border radius for rounded corners overflow so images stay in card borders -->
       <div class="card" style="border-radius: 1.5rem; overflow: hidden;">
+        <!-- Carousel for images -->
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -31,6 +39,7 @@ Dorm Info
           </div>
           <div class="carousel-inner">
             <div class="carousel-item active">
+              <!-- Images in our carosel -->
               <img src="{% static 'images/p1.jpg' %}" class="d-block w-100 img-fluid" alt="Image 1">
             </div>
             <div class="carousel-item">
@@ -49,6 +58,7 @@ Dorm Info
             <span class="visually-hidden">Next</span>
           </button>
         </div>
+        <!-- Card body with all the text information -->
         <div class="card-body">
           <h2 class="card-title">Dort And Gold</h5>
           <p class="card-text">One of the nicest living options on campus, dort and gold is an apartment style dorm traditonally set aside for upperclassmen. A spacious living room and double bathroom make it the largest suites available on campus</p>

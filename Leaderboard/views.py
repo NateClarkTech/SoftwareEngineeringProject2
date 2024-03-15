@@ -7,14 +7,17 @@ from django.db.models import F
 from django.contrib.auth.decorators import login_required
 
 
-# A simple view that returns checklist.html
+#This is the PRIMARY VIEW for the checklist, it will render the checklist.html page and pass the context to the page (our tasks and their status) from the model
+#The @login_required decorator ensures that only logged in users can access this page
 @login_required(login_url='/profile/login/')
 def checklist(request):
+    #Try to get the users checklist from DB if it doesn't exist create a new one
     try:
         user_checklist = Checklist.objects.get(user=request.user)
     except Checklist.DoesNotExist:
         user_checklist = Checklist.objects.create(user=request.user)
 
+    #The status of the users tasks are passed to the template as context
     context = {
         'task1': user_checklist.task1,
         'task2': user_checklist.task2,
@@ -29,14 +32,18 @@ def checklist(request):
     }
     return render(request, 'checklist.html', context)
 
+#This view is used to update the status of the tasks in the database and handle post requests from the JS
 @csrf_exempt
 def update_checklist(request):
+    #Only handle request if it's a post request
     if request.method == 'POST':
+        #Again try to get the users checklist from the DB, if it doesn't exist create a new one
         try:
             user_checklist = Checklist.objects.get(user=request.user)
         except Checklist.DoesNotExist:
             user_checklist = Checklist.objects.create(user=request.user)
 
+        #Update the status of the tasks in the database
         user_checklist.task1 = request.POST.get('task1') == 'true'
         user_checklist.task2 = request.POST.get('task2') == 'true'
         user_checklist.task3 = request.POST.get('task3') == 'true'
@@ -48,14 +55,16 @@ def update_checklist(request):
         user_checklist.task9 = request.POST.get('task9') == 'true'
         user_checklist.task10 = request.POST.get('task10') == 'true'
 
-        # Update the score
+        # Update the score 
         user_checklist.update_score()
 
+        #Return JSON response so JS knows the request was successful
         return JsonResponse({'status': 'success'})
     
-
+#This view is for the reset button the page, and allows the user to reset all the tasks (Uncheck them) as well as updating their score
 @csrf_exempt
 def reset_tasks(request):
+    #Only handle request if it's a post request
     if request.method == 'POST':
         # Assuming the user is authenticated and available as request.user
         checklist = Checklist.objects.get(user=request.user)
@@ -77,6 +86,8 @@ def reset_tasks(request):
         # Return a success response
         return JsonResponse({'status': 'success'})
 
+#This view is for the leaderboard page, it will render the leaderboardAlt.html page, and pass a list of players with their rank, name, and score to the page
+#The @login_required decorator ensures that only logged in users can access this page
 @login_required(login_url='/profile/login/')    
 def leaderboard_view(request):
     # Query the database for all checklists, ordered by score in descending order
@@ -87,5 +98,5 @@ def leaderboard_view(request):
         {"rank": i + 1, "name": checklist.user.username, "score": checklist.score}
         for i, checklist in enumerate(checklists)
     ]
-
+    # Pass the list of players to template and return the template
     return render(request, 'leaderboardAlt.html', {'players': players})
