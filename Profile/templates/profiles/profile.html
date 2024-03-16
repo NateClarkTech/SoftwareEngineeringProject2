@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}Profile{% endblock %}
-
+<!-- This is the template for the profile page, both for current user and for others -->
 {% block extendHeader %}
 <style>
     @media (max-width: 992px) {
@@ -184,7 +184,7 @@
                     <p><strong>Current Student:</strong> No</p>
                 {% endif %}
             </div>
-            <!-- Show the back to search button if needed-->
+            <!-- Show the back to search button if needed applicable-->
             {% if request.GET.search %}
             <a href="{% url 'Profile:search_profiles' %}?query={{ request.GET.search }}" class="btn btn-primary">Back to Search</a>
             {% endif %}

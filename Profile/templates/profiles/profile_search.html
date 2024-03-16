@@ -1,7 +1,8 @@
 {% extends "base.html" %}
-
+<!-- This is the page to handle the profile searching, and displaying of said results-->
 {% block title %}Search Profiles{% endblock %}
 {% block extendHeader %}
+<!-- Custom styling -->
 <style>
     .profile{
         display: flex;
@@ -35,6 +36,7 @@
         flex-direction: column;
         align-items: center;
     }
+    /* Custom styling for the mobile view */
     @media (max-width: 992px) {
 
         .body-cont{
@@ -56,16 +58,17 @@
     
 </style>
 {% endblock %}
-
+<!-- Main content -->
 {% block content %}
 <div class="container">
     <h1>Search Profiles</h1>
+    <!-- Search form -->
     <form method="get" action="{% url 'Profile:search_profiles' %}">
-        {% csrf_token %}
+        {% csrf_token %} 
         {{ form.as_p }}
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
-
+    <!-- Display search results -->
     {% if query %}
         <h2>Results for '{{ query }}':</h2>
         <div class="profiles-list">

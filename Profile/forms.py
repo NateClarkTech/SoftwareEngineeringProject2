@@ -9,7 +9,7 @@ class UserUpdateForm(forms.ModelForm):
         fields = ['username', 'email']
 
 
-
+# Here we have the profile update form, it allows users to update their profiles, and takes in every possible field
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile

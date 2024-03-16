@@ -11,6 +11,7 @@ from django.contrib.auth import views as auth_views
 
 app_name = 'Profile'
 
+# Here we have the urls for the profile app
 urlpatterns = [
 
     path('profile/', views.profile, name='profile'),  # For the logged-in user's profile
@@ -24,6 +25,6 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('register/', views.register, name='register'),
     
-
+    # link the media files
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

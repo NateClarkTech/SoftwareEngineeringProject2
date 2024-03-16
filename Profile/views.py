@@ -8,8 +8,7 @@ from django.contrib.auth import login, logout
 
 from django.shortcuts import render, redirect, get_object_or_404
 
-# Create your views here.
-    # Getting started on the profiles Wes
+# The primary view for the profile, this is for the current user
 @login_required
 def profile(request):
     profile, created = Profile.objects.get_or_create(user=request.user)
@@ -25,7 +24,7 @@ def profile(request):
     context = {'form': form, 'profile': profile}
     return render(request, 'profiles/profile.html', context)
 
-
+# Much the same as the profile view, this is to view other users profiles
 def public_profile(request, username):
     user = get_object_or_404(User, username=username)
     profile = get_object_or_404(Profile, user=user)
@@ -59,7 +58,7 @@ def search_profiles(request):
     
 
 
-
+# Using Djangos registration form, and letting us registering the new user
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -76,7 +75,7 @@ def logout_view(request):
     logout(request)
     return redirect('calendar')
 
-
+# A view to allow the user to edit the profile
 def edit_profile(request):
     profile, created = Profile.objects.get_or_create(user=request.user)
     if request.method == 'POST':
