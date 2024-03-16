@@ -16,7 +16,8 @@ Including another URLconf
 """
 from django.urls import path
 
-from .rest_api import add_task, get_tasks, delete_task, add_message, get_messages,delete_message, get_username
+from .rest_api import add_task, get_tasks, delete_task, add_message, \
+    get_messages, delete_message, get_username, test_chat
 
 urlpatterns = [
 
@@ -24,11 +25,14 @@ urlpatterns = [
     path('add_task/', add_task, name='add_task'),
     path('get_tasks/<int:userid>/', get_tasks, name='get_tasks'),
     path('delete_task/<int:task_id>/', delete_task, name='delete_task'),
-    
+
 
     # CHAT API
     path('add_message/', add_message, name='add_message'),
     path('get_messages/', get_messages, name='get_messages'),
-    path('delete_message/<int:message_id>/', delete_message, name='delete_message'),
+    path('delete_message/<int:message_id>/',
+         delete_message, name='delete_message'),
     path('get_username/', get_username, name='get_username'),
+    path('test_chat/', test_chat, name='get_username'),
+
 ]

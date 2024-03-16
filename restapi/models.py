@@ -2,6 +2,9 @@ from django.db import models
 
 
 # CALENDER MODELS
+"""
+Represents a user tasks in the calender
+"""
 class Task(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255, default="")
@@ -16,6 +19,9 @@ class Task(models.Model):
         return self.title
 
 
+"""
+Represents a single message in the chat page
+"""
 class Message(models.Model):
     id = models.AutoField(primary_key=True)
     sender = models.CharField(max_length=255, default="")

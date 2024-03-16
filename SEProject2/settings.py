@@ -30,6 +30,7 @@ ALLOWED_HOSTS = ['kinjen.pythonanywhere.com', 'www.kinjen.pythonanywhere.com', '
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,6 +44,8 @@ INSTALLED_APPS = [
     'dorms',
     'ShoppingList',
     'restapi',
+    "channels",
+
 ]
 
 MIDDLEWARE = [
@@ -77,6 +80,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'SEProject2.wsgi.application'
+ASGI_APPLICATION = 'SEProject2.asgi.application' 
 
 
 # Database
@@ -138,3 +142,10 @@ LOGOUT_REDIRECT_URL = 'calendar'  # Adjust as needed
 
 #  CORS
 CORS_ORIGIN_ALLOW_ALL = True
+
+# channels
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
