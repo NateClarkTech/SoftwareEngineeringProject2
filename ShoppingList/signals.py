@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.dispatch import receiver
 from .models import ShoppingListItem, ShoppingListCategory
 
+#When a new user account is created make a shopping list for the user
 @receiver(post_save, sender=User)
 def create_user_shopping_list(sender, instance, created, **kwargs):
     if created:
