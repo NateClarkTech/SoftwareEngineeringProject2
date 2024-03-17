@@ -5,6 +5,9 @@
 {% block title %}Shopping List{% endblock %}
 
 {% block extendHeader %}
+<!--  Extend header start -->
+
+<!-- Style is placed here since for some reason an external css file was causing problems -->
 <style>
     .item-box {
         border: 1px solid #ccc;
@@ -31,38 +34,60 @@
         background-color: #fd9f9f;
     }
 </style>
+
+<!--  Extend header end -->
 {% endblock %}
 
-{% block content %}    
-<div class="align-items-center">
-    {% if user.is_authenticated %}
-    <div class="item-box">
-        <h1>Shopping List</h1>
-        <p>Premade <a href="https://www.amazon.com/hz/wishlist/ls/1MYC1SQ5AHTOC?ref_=wl_share" target="_blank">wishlist</a> of what you might need (remember to shop around for your favoirte brands and to stay in budget)</p>
-        <p class="pt-3">A helpful list of things you may need to buy for your college journey!</p>
-        <button type="button" class="btn btn-primary btn-small mb-2" onclick="printDiv('shoppingListContents')">Print List</button>
-        <div id="shoppingListContents">
-            {% for category in itemCategories %}
-                <h3>{{ category }}</h3>
-                {% for item in shoppingItems %}
-                    {% if item.category == category %}
-                    <div id="itembox-{{ forloop.counter }}" class="item-box d-flex {% if item.checked %}checked{%else%}not-checked{% endif %}">
-                            <label for="item-{{ forloop.counter }}" class="flex-grow-1 p-2">{{ item.name }}</label>
-                            <a href="{{ item.url }}" target="_blank" class="p-2">Buy Now</a>
-                            <input type="checkbox" id="item-{{ forloop.counter }}" class="p-2" {% if item.checked %}checked{% endif %}>
-                        </div>
-                    {% endif %}
+{% block content %}   
+    <!-- page content start -->
+    <!-- Shopping list contents -->
+    <div class="align-items-center">
+        {% if user.is_authenticated %}
+        <div class="item-box">
+
+            <!-- header and shopping wishlist -->
+
+            <h1>Shopping List</h1>
+            <p>Premade <a href="https://www.amazon.com/hz/wishlist/ls/1MYC1SQ5AHTOC?ref_=wl_share" target="_blank">wishlist</a> of what you might need (remember to shop around for your favoirte brands and to stay in budget)</p>
+            <p class="pt-3">A helpful list of things you may need to buy for your college journey!</p>
+
+            <!-- Button the print the shopping list -->
+            <button type="button" class="btn btn-primary btn-small mb-2" onclick="printDiv('shoppingListContents')">Print List</button>
+            
+            <!-- The shopping list contents -->
+            <div id="shoppingListContents">
+
+                <!-- Split the shopping list by category -->
+                {% for category in itemCategories %}
+                    <h3>{{ category }}</h3>
+
+                    <!-- For each shopping list item that is in that category add it to that section of the shopping list -->
+                    {% for item in shoppingItems %}
+                        {% if item.category == category %}
+
+                            <!-- the shopping list box -->
+                            <div id="itembox-{{ forloop.counter }}" class="item-box d-flex {% if item.checked %}checked{%else%}not-checked{% endif %}">
+                                <label for="item-{{ forloop.counter }}" class="flex-grow-1 p-2">{{ item.name }}</label>
+                                <a href="{{ item.url }}" target="_blank" class="p-2">Buy Now</a>
+                                <input type="checkbox" id="item-{{ forloop.counter }}" class="p-2" {% if item.checked %}checked{% endif %}>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 {% endfor %}
-            {% endfor %}
+            </div>
         </div>
+
+        <!-- only show shopping list if user is logged in -->
+        {% else %}
+            <p>You are not logged in</p>
+        {% endif %}
+        <!-- page content end -->
     </div>
-    {% else %}
-    <p>You are not logged in</p>
-    {% endif %}
-</div>
 {% endblock %}
 
 {% block scripts %}
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
-<script src={% static 'js/shoppinglist.js' %}></script>
+    <!-- scripts start -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <script src={% static 'js/shoppinglist.js' %}></script>
+    <!-- scripts end -->
 {% endblock %}
