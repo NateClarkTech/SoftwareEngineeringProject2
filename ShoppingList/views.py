@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 
+#shopping list page
 @login_required(login_url='/profile/login/')
 def shoppinglist(request):
     #Make sure the user has a shopping list
@@ -18,6 +19,7 @@ def shoppinglist(request):
 
     return render(request, 'shoppinglist.html', {'shoppingItems': shoppingItems, 'itemCategories': itemCategories})
 
+#updates the database with the shopping list in the POST request
 @csrf_exempt
 def update_shoppinglist(request):
     if request.method == 'POST':
